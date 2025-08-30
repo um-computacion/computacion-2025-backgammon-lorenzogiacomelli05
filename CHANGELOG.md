@@ -4,6 +4,13 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 ## [Unreleased]
 - Pendiente: Seguir con la clase del tablero y sus respectivos tests
 
+## [2025-08-30]
+### Added
+- Clase `Board` (mejorada):
+  - Métodos para consultar el tablero: `get_position(pos)`, `posicion_vacia(pos)`, `contar_fichas(pos)`.
+  - Métodos para modificar el tablero: `añadir_ficha(pos, ficha)`, `sacar_ficha(pos)`.
+  - Mantiene el método `display()` para mostrar el tablero en la terminal con posiciones y cantidad de fichas.
+
 ## [2025-08-29]
 ### Added
 - Clase `Board` (esqueleto inicial):
@@ -24,3 +31,4 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
   - `test_roll_devuelve_lista`: verifica que al tirar los dados se devuelva una lista con 2 o 4 valores.
   - `test_get_values`: verifica que `get_values()` devuelve lo mismo que los valores internos de la clase.
   - `test_tirada_doble`: verifica que `tirada_doble()` funciona correctamente para tiradas dobles y normales.
+
