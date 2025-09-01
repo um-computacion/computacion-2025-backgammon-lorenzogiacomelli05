@@ -4,6 +4,17 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 ## [Unreleased]
 - Pendiente: Seguir con la clase del tablero y sus respectivos tests
 
+## [2025-09-01]
+### Added
+- Tests unitarios para la clase `Board`:
+  - `test_get_position_valida`: verifica que `get_position()` devuelve una lista en una posición válida (forma simple, tipo principiante).
+  - `test_get_position_invalida`: verifica que `get_position()` devuelve lista vacía si la posición es inválida.
+  - `test_posicion_vacia`: verifica que `posicion_vacia()` devuelve True para posiciones vacías y False para ocupadas.
+  - `test_contar_fichas`: verifica que `contar_fichas()` devuelve la cantidad correcta de fichas en la posición.
+  - `test_añadir_ficha`: verifica que `añadir_ficha()` agrega correctamente una ficha.
+  - `test_sacar_ficha`: verifica que `sacar_ficha()` elimina una ficha correctamente.
+  - `test_sacar_ficha_vacio`: verifica que `sacar_ficha()` devuelve None si la posición está vacía.
+
 ## [2025-08-30]
 ### Added
 - Clase `Board` (mejorada):
@@ -31,4 +42,3 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
   - `test_roll_devuelve_lista`: verifica que al tirar los dados se devuelva una lista con 2 o 4 valores.
   - `test_get_values`: verifica que `get_values()` devuelve lo mismo que los valores internos de la clase.
   - `test_tirada_doble`: verifica que `tirada_doble()` funciona correctamente para tiradas dobles y normales.
-
