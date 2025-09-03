@@ -2,7 +2,13 @@
 Todas las modificaciones importantes de este proyecto se documentarán en este archivo.
 
 ## [Unreleased]
-- Pendiente: Seguir con la clase del tablero y sus respectivos tests
+- Pendiente: Seguir con la clase de los jugadores y sus respectivos tests
+
+## [2025-09-03]
+### Added
+- Clase `Jugador` (versión inicial para Backgammon):
+  - Atributos: `numero` (1 o 2) y `ficha` ('X' u 'O').
+  - Métodos: `get_numero()` y `get_ficha()`.
 
 ## [2025-09-01]
 ### Added
