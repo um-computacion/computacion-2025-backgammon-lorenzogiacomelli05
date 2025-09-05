@@ -12,7 +12,7 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 
 ## [2025-09-03]
 ### Added
-- Clase `Player` (versión inicial para Backgammon):
+- Clase `Player`:
   - Atributos: `numero` (1 o 2) y `ficha` ('X' u 'O').
   - Métodos: `get_numero()` y `get_ficha()`.
 
