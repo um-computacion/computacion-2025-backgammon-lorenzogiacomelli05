@@ -4,9 +4,15 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 ## [Unreleased]
 - Pendiente: Seguir con la clase de los jugadores y sus respectivos tests
 
+## [2025-09-05]
+### Added
+- Tests unitarios para la clase `Player`:
+  - `test_get_numero`: verifica que `get_numero()` devuelve correctamente el número del jugador.
+  - `test_get_ficha`: verifica que `get_ficha()` devuelve correctamente la ficha del jugador.
+
 ## [2025-09-03]
 ### Added
-- Clase `Jugador` (versión inicial para Backgammon):
+- Clase `Player` (versión inicial para Backgammon):
   - Atributos: `numero` (1 o 2) y `ficha` ('X' u 'O').
   - Métodos: `get_numero()` y `get_ficha()`.
 
