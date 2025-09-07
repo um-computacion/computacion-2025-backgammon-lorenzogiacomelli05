@@ -4,14 +4,20 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 ## [Unreleased]
 - Pendiente: Seguir con la clase Checker y sus respectivos tests
 
+## [2025-09-07]
+### Added
+- Tests unitarios para la clase `Checker`:
+  - `test_get_jugador`: verifica que `get_jugador()` devuelve el jugador correcto.
+  - `test_inicial_no_barra_meta`: verifica que al crear una ficha no está en barra ni en meta.
+  - `test_mandar_a_barra`: verifica que `mandar_a_barra()` pone la ficha en la barra y no en la meta.
+  - `test_sacar_de_barra`: verifica que `sacar_de_barra()` saca la ficha de la barra.
+  - `test_mandar_a_meta`: verifica que `mandar_a_meta()` pone la ficha en la meta y no en la barra.
+
 ## [2025-09-06]
 ### Added
 - Clase `Checker`:
-  - Atributos: `ficha` (representa el tipo de ficha) y `posicion` (posición actual en el tablero).
-  - Métodos básicos:
-    - `get_ficha()`: devuelve la ficha.
-    - `get_posicion()`: devuelve la posición actual.
-    - `set_posicion(posicion)`: actualiza la posición de la ficha.
+  - Atributos: `jugador`, `en_barra`, `en_meta`.
+  - Métodos: `get_jugador()`, `esta_en_barra()`, `esta_en_meta()`, `mandar_a_barra()`, `sacar_de_barra()`, `mandar_a_meta()`.
 
 ## [2025-09-05]
 ### Added
@@ -45,7 +51,7 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 
 ## [2025-08-29]
 ### Added
-- Clase `Board`:
+- Clase `Board` (esqueleto inicial):
   - Representación del tablero en la terminal con las fichas en posiciones de inicio.
   - Método `display()` para mostrar tablero.
 
@@ -53,4 +59,13 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 ### Added
 - Más tests unitarios para la clase `Dice`:
   - `test_individual_values`: verifica que `individual_values()` devuelve correctamente 2 valores en caso de tirada doble y los valores originales en tirada normal.
-  - `test_usar_valor`: verifica que al usar un valor
+  - `test_usar_valor`: verifica que al usar un valor se mueva de la lista de valores disponibles a la lista de usados.
+  - `test_valores_usados`: verifica que los valores usados se guarden correctamente.
+  - `test_str`: verifica que `__str__` devuelve el string esperado de los valores de los dados.
+
+## [2025-08-27]
+### Added
+- Primeros tests unitarios con `unittest` para la clase `Dice`:
+  - `test_roll_devuelve_lista`: verifica que al tirar los dados se devuelva una lista con 2 o 4 valores.
+  - `test_get_values`: verifica que `get_values()` devuelve lo mismo que los valores internos de la clase.
+  - `test_tirada_doble`: verifica que `tirada_doble()` funciona correctamente para tiradas dobles y normales.
