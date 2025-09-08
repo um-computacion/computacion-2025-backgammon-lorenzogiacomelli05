@@ -2,7 +2,19 @@
 Todas las modificaciones importantes de este proyecto se documentarán en este archivo.
 
 ## [Unreleased]
-- Pendiente: Seguir con la clase Checker y sus respectivos tests
+- Pendiente: Seguir con la clase de la lógica general (BackgammmonGame) y sus respectivos tests
+
+## [2025-09-08]
+### Added
+- Clase `BackgammonGame` (esqueleto inicial):
+  - Controla flujo general del juego: tablero (`Board`), jugadores (`Player`), dados (`Dice`) y turnos.
+  - Métodos principales:
+    - `get_jugador_actual()`: devuelve el jugador actual según el turno.
+    - `cambiar_turno()`: cambia el turno al otro jugador.
+    - `tirar_dados()`: tira los dados y muestra resultados.
+    - `mover_ficha(origen, destino)`: mueve una ficha en el tablero.
+    - `estado_juego()`: muestra el estado actual del tablero.
+    - `juego_terminado()`: devuelve False por ahora, acá va a ir la condición de victoria.
 
 ## [2025-09-07]
 ### Added
@@ -51,7 +63,7 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 
 ## [2025-08-29]
 ### Added
-- Clase `Board` (esqueleto inicial):
+- Clase `Board`:
   - Representación del tablero en la terminal con las fichas en posiciones de inicio.
   - Método `display()` para mostrar tablero.
 
