@@ -14,7 +14,7 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
     - `tirar_dados()`: tira los dados y muestra resultados.
     - `mover_ficha(origen, destino)`: mueve una ficha en el tablero.
     - `estado_juego()`: muestra el estado actual del tablero.
-    - `juego_terminado()`: devuelve False por ahora, acá va a ir la condición de victoria.
+    - `juego_terminado()`: Acá va a ir la condición de victoria.
 
 ## [2025-09-07]
 ### Added
