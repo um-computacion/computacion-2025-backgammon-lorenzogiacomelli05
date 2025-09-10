@@ -7,13 +7,13 @@ class Board:
     def __init__(self):
         """
         Inicializa el tablero con 24 posiciones (1 - 24), la barra y el home.
-        Coloca las fichas en la configuración inicial clásica.
+        Coloca las fichas en la configuración inicial.
         """
         self.positions = [[] for _ in range(25)]  # Índices 1–24
         self.bar = {"X": [], "O": []}  # Fichas capturadas
         self.home = {"X": [], "O": []}  # Fichas que salieron del tablero
 
-        # Configuración inicial clásica
+        # Configuración inicial
         self.positions[1] = ['X'] * 2
         self.positions[6] = ['O'] * 5
         self.positions[8] = ['O'] * 3
@@ -26,7 +26,7 @@ class Board:
     def display(self):
         """
         Muestra el tablero en la terminal horizontalmente con posiciones 1 - 24.
-        Cada posición muestra la ficha y cantidad como X(5) o O(3), alineado correctamente.
+        Cada posición muestra la ficha y cantidad como X(5) o O(3).
         Incluye Barra y Home.
         """
         col_width = 6  # ancho fijo de cada columna
