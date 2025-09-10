@@ -1,57 +1,73 @@
 class Board:
+    """
+    Clase que representa el tablero de Backgammon.
+    Maneja las posiciones de las fichas, la barra y el home.
+    """
+
     def __init__(self):
-        # 24 posiciones del tablero
-        self.positions = [[] for _ in range(24)]
+        """
+        Inicializa el tablero con 24 posiciones (1 - 24), la barra y el home.
+        Coloca las fichas en la configuración inicial clásica.
+        """
+        self.positions = [[] for _ in range(25)]  # Índices 1–24
+        self.bar = {"X": [], "O": []}  # Fichas capturadas
+        self.home = {"X": [], "O": []}  # Fichas que salieron del tablero
 
-        # Configuración inicial simplificada
-        self.positions[0] = ['X', 'X']
-        self.positions[11] = ['X'] * 5
-        self.positions[16] = ['X'] * 3
-        self.positions[18] = ['X'] * 5
-
-        self.positions[23] = ['O', 'O']
-        self.positions[12] = ['O'] * 5
-        self.positions[7] = ['O'] * 3
-        self.positions[5] = ['O'] * 5
+        # Configuración inicial clásica
+        self.positions[1] = ['X'] * 2
+        self.positions[6] = ['O'] * 5
+        self.positions[8] = ['O'] * 3
+        self.positions[12] = ['X'] * 5
+        self.positions[13] = ['O'] * 5
+        self.positions[17] = ['X'] * 3
+        self.positions[19] = ['X'] * 5
+        self.positions[24] = ['O'] * 2
 
     def display(self):
-        print("=== TABLERO DE BACKGAMMON ===")
-        for i in range(24):
+        """
+        Muestra el tablero en la terminal horizontalmente con posiciones 1 - 24.
+        Cada posición muestra la ficha y cantidad como X(5) o O(3), alineado correctamente.
+        Incluye Barra y Home.
+        """
+        col_width = 6  # ancho fijo de cada columna
+
+        print("\n=== TABLERO DE BACKGAMMON ===\n")
+
+        # --- Parte superior (posiciones 13–24) ---
+        top_range = range(13, 25)
+        print("Arriba: ", "".join([f"{i:2}".center(col_width) for i in top_range]))
+        fila_top = []
+        for i in top_range:
             if self.positions[i]:
                 ficha = self.positions[i][0]
                 cantidad = len(self.positions[i])
-                pos = f"{ficha}({cantidad})"
+                fila_top.append(f"{ficha}({cantidad})".center(col_width))
             else:
-                pos = "."
-            print(f"{i+1:2}: {pos}")
-            if i == 11:
-                print("-------- MITAD DEL TABLERO --------")
+                fila_top.append(" ".center(col_width))
+        print("        " + "".join(fila_top))
 
-    # Métodos “simples” para manipular fichas
-    def get_position(self, pos):
-        """Devuelve las fichas en una posición (0-23)"""
-        if 0 <= pos < 24:
-            return self.positions[pos]
-        return []
+        print("-" * (col_width * 12 + 8))  # separación
 
-    def posicion_vacia(self, pos):
-        """Devuelve True si la posición está vacía"""
-        return len(self.get_position(pos)) == 0
+        # --- Parte inferior (posiciones 12–1) ---
+        bottom_range = range(12, 0, -1)
+        print("Abajo : ", "".join([f"{i:2}".center(col_width) for i in bottom_range]))
+        fila_bottom = []
+        for i in bottom_range:
+            if self.positions[i]:
+                ficha = self.positions[i][0]
+                cantidad = len(self.positions[i])
+                fila_bottom.append(f"{ficha}({cantidad})".center(col_width))
+            else:
+                fila_bottom.append(" ".center(col_width))
+        print("        " + "".join(fila_bottom))
 
-    def contar_fichas(self, pos):
-        """Cantidad de fichas en una posición"""
-        return len(self.get_position(pos))
+        # --- Barra ---
+        print("\nBarra:")
+        print(f"       X: {len(self.bar['X'])}".ljust(12) + f"O: {len(self.bar['O'])}".ljust(12))
 
-    def añadir_ficha(self, pos, ficha):
-        """Agrega una ficha en una posición"""
-        if 0 <= pos < 24:
-            self.positions[pos].append(ficha)
-
-    def sacar_ficha(self, pos):
-        """Quita una ficha de una posición (si hay alguna)"""
-        if 0 <= pos < 24 and self.positions[pos]:
-            return self.positions[pos].pop()
-        return None
+        # --- Home ---
+        print("\nHome:")
+        print(f"       X: {len(self.home['X'])}".ljust(12) + f"O: {len(self.home['O'])}".ljust(12))
 
 if __name__ == "__main__":
     board = Board()
