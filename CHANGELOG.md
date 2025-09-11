@@ -4,6 +4,20 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 ## [Unreleased]
 - Pendiente: Seguir con la clase de la lógica general (BackgammmonGame) y sus respectivos tests
 
+## [2025-09-11]
+### Updated
+- Tests unitarios de la clase `Board`:
+  - Se actualizaron para reflejar la nueva forma de mostrar las fichas (`X(n)` / `O(n)`).
+  - Se agregaron docstrings y comentarios aclaratorios en los tests.
+
+## [2025-09-10]
+### Updated
+- Clase `Board`:
+  - Se corrigió el método `display()`:
+    - Ahora las fichas se muestran en formato compacto `X(n)` / `O(n)`.
+    - Se ajustó la alineación horizontal para que cada posición quede directamente debajo de su número, sin corrimientos.
+  - Se simplificó la impresión del tablero en la terminal para mejorar la lectura durante el juego y las pruebas.
+
 ## [2025-09-08]
 ### Added
 - Clase `BackgammonGame` (esqueleto inicial):
