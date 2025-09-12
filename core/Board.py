@@ -9,19 +9,19 @@ class Board:
         Inicializa el tablero con 24 posiciones (1 - 24), la barra y el home.
         Coloca las fichas en la configuración inicial.
         """
-        self.positions = [[] for _ in range(25)]  # Índices 1–24
-        self.bar = {"X": [], "O": []}  # Fichas capturadas
-        self.home = {"X": [], "O": []}  # Fichas que salieron del tablero
+        self.__positions__ = [[] for _ in range(25)]  # Índices 1–24
+        self.__bar__ = {"X": [], "O": []}  # Fichas capturadas
+        self.__home__ = {"X": [], "O": []}  # Fichas que salieron del tablero
 
         # Configuración inicial
-        self.positions[1] = ['X'] * 2
-        self.positions[6] = ['O'] * 5
-        self.positions[8] = ['O'] * 3
-        self.positions[12] = ['X'] * 5
-        self.positions[13] = ['O'] * 5
-        self.positions[17] = ['X'] * 3
-        self.positions[19] = ['X'] * 5
-        self.positions[24] = ['O'] * 2
+        self.__positions__[1] = ['X'] * 2
+        self.__positions__[6] = ['O'] * 5
+        self.__positions__[8] = ['O'] * 3
+        self.__positions__[12] = ['X'] * 5
+        self.__positions__[13] = ['O'] * 5
+        self.__positions__[17] = ['X'] * 3
+        self.__positions__[19] = ['X'] * 5
+        self.__positions__[24] = ['O'] * 2
 
     def display(self):
         """
@@ -38,9 +38,9 @@ class Board:
         print("Arriba: ", "".join([f"{i:2}".center(col_width) for i in top_range]))
         fila_top = []
         for i in top_range:
-            if self.positions[i]:
-                ficha = self.positions[i][0]
-                cantidad = len(self.positions[i])
+            if self.__positions__[i]:
+                ficha = self.__positions__[i][0]
+                cantidad = len(self.__positions__[i])
                 fila_top.append(f"{ficha}({cantidad})".center(col_width))
             else:
                 fila_top.append(" ".center(col_width))
@@ -53,9 +53,9 @@ class Board:
         print("Abajo : ", "".join([f"{i:2}".center(col_width) for i in bottom_range]))
         fila_bottom = []
         for i in bottom_range:
-            if self.positions[i]:
-                ficha = self.positions[i][0]
-                cantidad = len(self.positions[i])
+            if self.__positions__[i]:
+                ficha = self.__positions__[i][0]
+                cantidad = len(self.__positions__[i])
                 fila_bottom.append(f"{ficha}({cantidad})".center(col_width))
             else:
                 fila_bottom.append(" ".center(col_width))
@@ -63,11 +63,11 @@ class Board:
 
         # --- Barra ---
         print("\nBarra:")
-        print(f"       X: {len(self.bar['X'])}".ljust(12) + f"O: {len(self.bar['O'])}".ljust(12))
+        print(f"       X: {len(self.__bar__['X'])}".ljust(12) + f"O: {len(self.__bar__['O'])}".ljust(12))
 
         # --- Home ---
         print("\nHome:")
-        print(f"       X: {len(self.home['X'])}".ljust(12) + f"O: {len(self.home['O'])}".ljust(12))
+        print(f"       X: {len(self.__home__['X'])}".ljust(12) + f"O: {len(self.__home__['O'])}".ljust(12))
 
 if __name__ == "__main__":
     board = Board()
