@@ -2,7 +2,18 @@
 Todas las modificaciones importantes de este proyecto se documentarán en este archivo.
 
 ## [Unreleased]
-- Pendiente: Seguir con la clase de la lógica general (BackgammmonGame) y sus respectivos tests
+- Pendiente: Seguir con la clase de la lógica general (BackgammonGame) y sus respectivos tests
+- Pendiente: Implementar CLI completo y gráficos con Pygame.
+
+## [2025-09-12]
+### Updated
+- Arreglos generales de todas las clases y algunas clases de tests (`Board`, `Dice`, `Player`, `Checker`, `BackgammonGame`):
+  - Todos los atributos internos ahora usan prefijo y sufijo doble guion bajo `__atributo__`.
+  - Se asegura que los atributos solo se accedan mediante `self`.
+- Clase `BackgammonGame`:
+  - Se ajustaron los atributos internos: `__board__`, `__players__`, `__dice__`, `__turno__`, `__dados_actuales__`.
+  - Se agregó método `jugar_turno()` para manejar un turno completo de jugador (tirar dados, mover ficha, cambiar turno).
+  - Se agregaron docstrings completos para todos los métodos.
 
 ## [2025-09-11]
 ### Updated

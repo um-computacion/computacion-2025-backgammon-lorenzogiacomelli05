@@ -1,96 +1,108 @@
 from core.Board import Board
-
 from core.Player import Player
-
 from core.Dice import Dice
 
 class BackgammonGame:
     """
     Clase principal que maneja el flujo general del juego de Backgammon.
-    Controla el tablero, los jugadores, los dados y los turnos.
+    Coordina el tablero, los jugadores, los dados y los turnos.
     """
 
     def __init__(self):
         """
         Inicializa un nuevo juego de Backgammon. 
-        Argumentos: - 
-        Returns: - 
-        Descripcion: Crea el tablero. Define a los dos jugadores (1 y 2). Prepara los dados. Establece el turno inicial en el Jugador 1.
         """
-        self.board = Board()
-        self.players = [Player(1, "X"), Player(2, "O")]
-        self.dice = Dice()
-        self.turno = 0  # índice del jugador en self.players
+        self.__board__ = Board()
+        self.__players__ = [Player(1, "X"), Player(2, "O")]
+        self.__dice__ = Dice()
+        self.__turno__ = 0              # índice del jugador en __players__
+        self.__dados_actuales__ = []    # valores de la tirada actual
 
     def get_jugador_actual(self):
         """
         Devuelve el jugador actual según el turno.
-        Args: - 
-        Returns: Player: instancia del jugador actual.
         """
-        return self.players[self.turno]
+        return self.__players__[self.__turno__]
 
     def cambiar_turno(self):
         """
         Cambia el turno al otro jugador.
-        Args: -
-        Returns: - 
-        Descripcion: Si el turno es del Jugador 1, pasa al Jugador 2, y viceversa.
         """
-        self.turno = 1 - self.turno
+        self.__turno__ = 1 - self.__turno__
+        self.__dados_actuales__ = []
 
     def tirar_dados(self):
         """
         Tira los dados para el jugador actual.
-        Args: - 
-        Returns: list: valores obtenidos en los dados.
         """
-        valores = self.dice.roll()
+        valores = self.__dice__.roll()
+        self.__dados_actuales__ = valores
         print(f"Jugador {self.get_jugador_actual().get_numero()} tiró los dados: {valores}")
         return valores
 
     def mover_ficha(self, origen, destino):
         """
         Intenta mover una ficha del jugador actual desde una posición a otra.
-        Args: origen (int): posición inicial (0 - 23). destino (int): posición destino (0 - 23).
-        Returns: bool: True si se pudo mover la ficha, False en caso contrario.
-
-        Description: Lógica inicial, no valida todas las reglas de Backgammon.
         """
-        fichas = self.board.get_position(origen)
+        fichas = self.__board__.get_position(origen)
         if not fichas:
             print("No hay fichas en esa posición.")
             return False
 
-        ficha = self.board.sacar_ficha(origen)
-        self.board.añadir_ficha(destino, ficha)
-        print(f"Jugador {self.get_jugador_actual().get_numero()} movió ficha de {origen} a {destino}")
+        jugador = self.get_jugador_actual()
+        if fichas[-1] != jugador.get_symbol():
+            print("Esa ficha no es tuya.")
+            return False
+
+        ficha = self.__board__.sacar_ficha(origen)
+        self.__board__.añadir_ficha(destino, ficha)
+        print(f"Jugador {jugador.get_numero()} movió ficha de {origen} a {destino}")
         return True
 
     def estado_juego(self):
         """
         Muestra en consola el estado actual del tablero.
-        Args: - 
-        Returns: - 
         """
-        self.board.display()
+        self.__board__.display()
 
     def juego_terminado(self):
         """
         Determina si el juego ha terminado.
-        Args: - 
-        Returns: bool: False (por ahora siempre devuelve False).
         """
+        for player in self.__players__:
+            fichas_en_tablero = sum(
+                len(self.__board__.get_position(pos)) for pos in range(1, 25)
+                if self.__board__.get_position(pos) and self.__board__.get_position(pos)[-1] == player.get_symbol()
+            )
+            if fichas_en_tablero == 0:
+                print(f"¡Jugador {player.get_numero()} ({player.get_symbol()}) ganó el juego!")
+                return True
         return False
+
+    def jugar_turno(self):
+        """
+        Maneja el turno completo de un jugador.
+        """
+        jugador = self.get_jugador_actual()
+        print(f"\nTurno del Jugador {jugador.get_numero()} ({jugador.get_symbol()})")
+
+        # Tirar dados
+        self.tirar_dados()
+
+        try:
+            origen = int(input("Elige la posición de origen (1-24): "))
+            destino = int(input("Elige la posición de destino (1-24): "))
+            self.mover_ficha(origen, destino)
+        except ValueError:
+            print("Entrada inválida, turno perdido.")
+
+        self.estado_juego()
+        self.cambiar_turno()
 
 
 if __name__ == "__main__":
-
     juego = BackgammonGame()
     juego.estado_juego()
-    
+
     while not juego.juego_terminado():
-        input("Presiona Enter para tirar dados...")
-        juego.tirar_dados()
-        # Acá se va a pedir origen y destino con input()
-        juego.cambiar_turno()
+        juego.jugar_turno()
