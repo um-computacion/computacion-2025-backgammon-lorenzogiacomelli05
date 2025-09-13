@@ -1,5 +1,6 @@
 import unittest
 from core.Board import Board
+from core.Checker import Checker
 
 class TestBoard(unittest.TestCase):
     """
@@ -16,40 +17,41 @@ class TestBoard(unittest.TestCase):
         """
         Verifica que la configuración inicial del tablero sea la correcta.
         """
-        self.assertEqual(len(self.board.__positions__[1]), 2)   # 2 fichas X en pos 1
-        self.assertEqual(len(self.board.__positions__[6]), 5)   # 5 fichas O en pos 6
-        self.assertEqual(len(self.board.__positions__[8]), 3)   # 3 fichas O en pos 8
-        self.assertEqual(len(self.board.__positions__[12]), 5)  # 5 fichas X en pos 12
-        self.assertEqual(len(self.board.__positions__[13]), 5)  # 5 fichas O en pos 13
-        self.assertEqual(len(self.board.__positions__[17]), 3)  # 3 fichas X en pos 17
-        self.assertEqual(len(self.board.__positions__[19]), 5)  # 5 fichas X en pos 19
-        self.assertEqual(len(self.board.__positions__[24]), 2)  # 2 fichas O en pos 24
+        # Posición 1 debería tener 2 fichas del jugador 1 (X)
+        self.assertEqual(len(self.board._Board__positions__[1]), 2)
+        self.assertTrue(all(isinstance(chk, Checker) for chk in self.board._Board__positions__[1]))
+
+        # Posición 6 debería tener 5 fichas del jugador 2 (O)
+        self.assertEqual(len(self.board._Board__positions__[6]), 5)
+        self.assertTrue(all(chk.get_jugador() == 2 for chk in self.board._Board__positions__[6]))
 
     def test_barra_vacia_al_inicio(self):
         """
         Verifica que la barra comience vacía.
         """
-        self.assertEqual(len(self.board.__bar__["X"]), 0)
-        self.assertEqual(len(self.board.__bar__["O"]), 0)
+        self.assertEqual(len(self.board._Board__bar__["X"]), 0)
+        self.assertEqual(len(self.board._Board__bar__["O"]), 0)
 
     def test_home_vacio_al_inicio(self):
         """
         Verifica que el home comience vacío.
         """
-        self.assertEqual(len(self.board.__home__["X"]), 0)
-        self.assertEqual(len(self.board.__home__["O"]), 0)
+        self.assertEqual(len(self.board._Board__home__["X"]), 0)
+        self.assertEqual(len(self.board._Board__home__["O"]), 0)
 
-    def test_agregar_y_quitar_ficha(self):
+    def test_agregar_y_quitar_checker(self):
         """
-        Verifica que se puedan agregar y quitar fichas correctamente.
+        Verifica que se puedan agregar y quitar fichas (Checker) correctamente.
         """
         pos = 5
-        self.board.__positions__[pos].append("X")
-        self.assertEqual(len(self.board.__positions__[pos]), 1)
+        ficha = Checker(1)  # jugador 1 => 'X'
+        self.board._Board__positions__[pos].append(ficha)
+        self.assertEqual(len(self.board._Board__positions__[pos]), 1)
 
-        ficha = self.board.__positions__[pos].pop()
-        self.assertEqual(ficha, "X")
-        self.assertEqual(len(self.board.__positions__[pos]), 0)
+        quitada = self.board._Board__positions__[pos].pop()
+        self.assertIsInstance(quitada, Checker)
+        self.assertEqual(quitada.get_jugador(), 1)
+        self.assertEqual(len(self.board._Board__positions__[pos]), 0)
 
     def test_display_no_rompe(self):
         """

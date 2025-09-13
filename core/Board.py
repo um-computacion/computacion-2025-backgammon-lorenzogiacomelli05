@@ -1,3 +1,5 @@
+from Checker import Checker
+
 class Board:
     """
     Clase que representa el tablero de Backgammon.
@@ -10,23 +12,23 @@ class Board:
         Coloca las fichas en la configuración inicial.
         """
         self.__positions__ = [[] for _ in range(25)]  # Índices 1–24
-        self.__bar__ = {"X": [], "O": []}  # Fichas capturadas
-        self.__home__ = {"X": [], "O": []}  # Fichas que salieron del tablero
+        self.__bar__ = {1: [], 2: []}   # fichas en la barra, por jugador
+        self.__home__ = {1: [], 2: []}  # fichas que llegaron a la meta
 
         # Configuración inicial
-        self.__positions__[1] = ['X'] * 2
-        self.__positions__[6] = ['O'] * 5
-        self.__positions__[8] = ['O'] * 3
-        self.__positions__[12] = ['X'] * 5
-        self.__positions__[13] = ['O'] * 5
-        self.__positions__[17] = ['X'] * 3
-        self.__positions__[19] = ['X'] * 5
-        self.__positions__[24] = ['O'] * 2
+        self.__positions__[1] = [Checker(1) for _ in range(2)]
+        self.__positions__[6] = [Checker(2) for _ in range(5)]
+        self.__positions__[8] = [Checker(2) for _ in range(3)]
+        self.__positions__[12] = [Checker(1) for _ in range(5)]
+        self.__positions__[13] = [Checker(2) for _ in range(5)]
+        self.__positions__[17] = [Checker(1) for _ in range(3)]
+        self.__positions__[19] = [Checker(1) for _ in range(5)]
+        self.__positions__[24] = [Checker(2) for _ in range(2)]
 
     def display(self):
         """
         Muestra el tablero en la terminal horizontalmente con posiciones 1 - 24.
-        Cada posición muestra la ficha y cantidad como X(5) o O(3).
+        Cada posición muestra la ficha y cantidad como 1(5) o 2(3).
         Incluye Barra y Home.
         """
         col_width = 6  # ancho fijo de cada columna
@@ -39,9 +41,9 @@ class Board:
         fila_top = []
         for i in top_range:
             if self.__positions__[i]:
-                ficha = self.__positions__[i][0]
+                jugador = self.__positions__[i][0].get_jugador()
                 cantidad = len(self.__positions__[i])
-                fila_top.append(f"{ficha}({cantidad})".center(col_width))
+                fila_top.append(f"{jugador}({cantidad})".center(col_width))
             else:
                 fila_top.append(" ".center(col_width))
         print("        " + "".join(fila_top))
@@ -54,20 +56,21 @@ class Board:
         fila_bottom = []
         for i in bottom_range:
             if self.__positions__[i]:
-                ficha = self.__positions__[i][0]
+                jugador = self.__positions__[i][0].get_jugador()
                 cantidad = len(self.__positions__[i])
-                fila_bottom.append(f"{ficha}({cantidad})".center(col_width))
+                fila_bottom.append(f"{jugador}({cantidad})".center(col_width))
             else:
                 fila_bottom.append(" ".center(col_width))
         print("        " + "".join(fila_bottom))
 
         # --- Barra ---
         print("\nBarra:")
-        print(f"       X: {len(self.__bar__['X'])}".ljust(12) + f"O: {len(self.__bar__['O'])}".ljust(12))
+        print(f"       J1: {len(self.__bar__[1])}".ljust(12) + f"J2: {len(self.__bar__[2])}".ljust(12))
 
         # --- Home ---
         print("\nHome:")
-        print(f"       X: {len(self.__home__['X'])}".ljust(12) + f"O: {len(self.__home__['O'])}".ljust(12))
+        print(f"       J1: {len(self.__home__[1])}".ljust(12) + f"J2: {len(self.__home__[2])}".ljust(12))
+
 
 if __name__ == "__main__":
     board = Board()

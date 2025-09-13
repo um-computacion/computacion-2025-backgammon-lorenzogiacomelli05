@@ -2,8 +2,19 @@
 Todas las modificaciones importantes de este proyecto se documentarán en este archivo.
 
 ## [Unreleased]
-- Pendiente: Seguir con la clase de la lógica general (BackgammonGame) y sus respectivos tests
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
+- Pendiente: Agregar tests unitarios de la clase BackgammonGame.
+
+## [2025-09-13]
+### Updated
+- Integración de la clase `Checker` en el proyecto:
+  - Clase `Board`:
+    - Las fichas ahora son objetos `Checker` en lugar de strings `'X'` / `'O'`.
+    - `__positions__` almacena listas de `Checker`.
+    - `__bar__` y `__home__` se organizan por jugador (1 y 2) y contienen `Checker`.
+    - Método `display()` actualizado para mostrar `jugador(cantidad)` usando `Checker.get_jugador()`.
+  - Se asegura que todos los atributos internos usan prefijo y sufijo doble `__atributo__`.
+  - Métodos de `Board` y `display()` ajustados para trabajar con objetos `Checker`.
 
 ## [2025-09-12]
 ### Updated
