@@ -1,4 +1,4 @@
-from Checker import Checker
+from core.Checker import Checker
 
 class Board:
     """
@@ -16,14 +16,38 @@ class Board:
         self.__home__ = {1: [], 2: []}  # fichas que llegaron a la meta
 
         # Configuración inicial
-        self.__positions__[1] = [Checker(1) for _ in range(2)]
-        self.__positions__[6] = [Checker(2) for _ in range(5)]
-        self.__positions__[8] = [Checker(2) for _ in range(3)]
+        self.__positions__[1]  = [Checker(1) for _ in range(2)]
+        self.__positions__[6]  = [Checker(2) for _ in range(5)]
+        self.__positions__[8]  = [Checker(2) for _ in range(3)]
         self.__positions__[12] = [Checker(1) for _ in range(5)]
         self.__positions__[13] = [Checker(2) for _ in range(5)]
         self.__positions__[17] = [Checker(1) for _ in range(3)]
         self.__positions__[19] = [Checker(1) for _ in range(5)]
         self.__positions__[24] = [Checker(2) for _ in range(2)]
+
+    def get_position(self, pos: int):
+        """Devuelve la lista de fichas en una posición del tablero."""
+        if 1 <= pos <= 24:
+            return self.__positions__[pos]
+        return []
+
+    def añadir_ficha(self, pos: int, ficha: Checker):
+        """Añade una ficha (Checker) en una posición válida del tablero."""
+        if 1 <= pos <= 24:
+            self.__positions__[pos].append(ficha)
+
+    def sacar_ficha(self, pos: int):
+        """
+        Saca y devuelve la última ficha de una posición.
+        Si no hay fichas, devuelve None.
+        """
+        if 1 <= pos <= 24 and self.__positions__[pos]:
+            return self.__positions__[pos].pop()
+        return None
+
+    # ==============================
+    # Representación del tablero
+    # ==============================
 
     def display(self):
         """
