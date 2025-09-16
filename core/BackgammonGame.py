@@ -10,7 +10,7 @@ class BackgammonGame:
 
     def __init__(self):
         """
-        Inicializa un nuevo juego de Backgammon.
+        Inicializa un nuevo juego de Backgammon. 
         """
         self.__board__ = Board()
         self.__players__ = [Player(1, "X"), Player(2, "O")]
@@ -49,31 +49,19 @@ class BackgammonGame:
             print("No hay fichas en esa posición.")
             return False
 
-        jugador = self.get_jugador_actual()
-        ultima_ficha = fichas[-1]
+        jugador_actual = self.get_jugador_actual()
 
-        # Verificar que la ficha pertenezca al jugador actual
-        if ultima_ficha.get_jugador() != jugador.get_numero():
+        # La ficha que se mueve es la última de la pila (tope)
+        ficha = fichas[-1]
+
+        if ficha.get_jugador() != jugador_actual.get_numero():
             print("Esa ficha no es tuya.")
             return False
 
-        # Sacar la ficha de la posición origen
-        ficha = self.__board__.sacar_ficha(origen)
-
-        # Si la posición destino tiene una sola ficha del rival, capturarla
-        if self.__board__.get_position(destino):
-            ficha_destino = self.__board__.get_position(destino)[-1]
-            if ficha_destino.get_jugador() != jugador.get_numero() and len(self.__board__.get_position(destino)) == 1:
-                # Mover ficha rival a la barra
-                rival_num = ficha_destino.get_jugador()
-                ficha_destino.mandar_a_barra()
-                self.__board__.__bar__[rival_num].append(ficha_destino)
-                self.__board__.sacar_ficha(destino)
-                print(f"Ficha del jugador {rival_num} capturada y enviada a la barra!")
-
-        # Agregar ficha al destino
-        self.__board__.añadir_ficha(destino, ficha)
-        print(f"Jugador {jugador.get_numero()} movió ficha de {origen} a {destino}")
+        # Sacar la ficha del origen y añadirla al destino
+        ficha_movida = self.__board__.sacar_ficha(origen)
+        self.__board__.añadir_ficha(destino, ficha_movida)
+        print(f"Jugador {jugador_actual.get_numero()} movió ficha de {origen} a {destino}")
         return True
 
     def estado_juego(self):
@@ -88,9 +76,10 @@ class BackgammonGame:
         """
         for player in self.__players__:
             fichas_en_tablero = sum(
-                1 for pos in range(1, 25)
-                for ficha in self.__board__.get_position(pos)
-                if ficha.get_jugador() == player.get_numero()
+                len(self.__board__.get_position(pos)) 
+                for pos in range(1, 25)
+                if self.__board__.get_position(pos) 
+                and self.__board__.get_position(pos)[-1].get_jugador() == player.get_numero()
             )
             if fichas_en_tablero == 0:
                 print(f"¡Jugador {player.get_numero()} ({player.get_ficha()}) ganó el juego!")
