@@ -40,7 +40,7 @@ class BackgammonGame:
         print(f"Jugador {self.get_jugador_actual().get_numero()} tiró los dados: {valores}")
         return valores
 
-    def mover_ficha(self, origen, destino):
+    def mover_ficha(self, origen: int, destino: int):
         """
         Intenta mover una ficha del jugador actual desde una posición a otra.
         """
@@ -51,7 +51,7 @@ class BackgammonGame:
 
         jugador_actual = self.get_jugador_actual()
 
-        # La ficha que se mueve es la última de la pila (tope)
+        # La ficha que se mueve es la última.
         ficha = fichas[-1]
 
         if ficha.get_jugador() != jugador_actual.get_numero():
@@ -60,6 +60,10 @@ class BackgammonGame:
 
         # Sacar la ficha del origen y añadirla al destino
         ficha_movida = self.__board__.sacar_ficha(origen)
+        if ficha_movida is None:
+            print("Error al sacar la ficha.")
+            return False
+
         self.__board__.añadir_ficha(destino, ficha_movida)
         print(f"Jugador {jugador_actual.get_numero()} movió ficha de {origen} a {destino}")
         return True
@@ -76,9 +80,9 @@ class BackgammonGame:
         """
         for player in self.__players__:
             fichas_en_tablero = sum(
-                len(self.__board__.get_position(pos)) 
+                len(self.__board__.get_position(pos))
                 for pos in range(1, 25)
-                if self.__board__.get_position(pos) 
+                if self.__board__.get_position(pos)
                 and self.__board__.get_position(pos)[-1].get_jugador() == player.get_numero()
             )
             if fichas_en_tablero == 0:
@@ -105,7 +109,6 @@ class BackgammonGame:
 
         self.estado_juego()
         self.cambiar_turno()
-
 
 if __name__ == "__main__":
     juego = BackgammonGame()
