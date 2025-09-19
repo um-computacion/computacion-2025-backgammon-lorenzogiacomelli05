@@ -4,115 +4,154 @@ from core.Dice import Dice
 
 class BackgammonGame:
     """
-    Clase principal que maneja el flujo general del juego de Backgammon.
-    Coordina el tablero, los jugadores, los dados y los turnos.
+    Clase principal que maneja el flujo completo del juego de Backgammon.
+    Coordina tablero, jugadores, dados, turnos y reglas.
     """
 
     def __init__(self):
         """
-        Inicializa un nuevo juego de Backgammon. 
+        Inicializa un nuevo juego de Backgammon.
         """
         self.__board__ = Board()
         self.__players__ = [Player(1, "X"), Player(2, "O")]
         self.__dice__ = Dice()
-        self.__turno__ = 0              # índice del jugador en __players__
-        self.__dados_actuales__ = []    # valores de la tirada actual
+        self.__turno__ = 0
+        self.__dados_actuales__ = []
+        self.__dados_usados__ = []
 
     def get_jugador_actual(self):
-        """
-        Devuelve el jugador actual según el turno.
-        """
+        """Devuelve el jugador actual según el turno."""
         return self.__players__[self.__turno__]
 
     def cambiar_turno(self):
-        """
-        Cambia el turno al otro jugador.
-        """
+        """Cambia el turno al otro jugador y reinicia los dados."""
         self.__turno__ = 1 - self.__turno__
         self.__dados_actuales__ = []
+        self.__dados_usados__ = []
 
     def tirar_dados(self):
-        """
-        Tira los dados para el jugador actual.
-        """
+        """Tira los dados para el jugador actual."""
         valores = self.__dice__.roll()
-        self.__dados_actuales__ = valores
-        print(f"Jugador {self.get_jugador_actual().get_numero()} tiró los dados: {valores}")
+        self.__dados_actuales__ = self.__dice__.individual_values()
+        self.__dados_usados__ = []
+        print(f"Jugador {self.get_jugador_actual().get_numero()} tiró: {valores}")
         return valores
 
-    def mover_ficha(self, origen: int, destino: int):
+    def direccion_movimiento(self, jugador):
+        """Devuelve +1 si el jugador avanza de 1→24 o -1 si avanza 24→1."""
+        return 1 if jugador.get_numero() == 1 else -1
+
+    def posicion_casa(self, jugador):
+        """Devuelve las posiciones de la 'casa' según el jugador."""
+        return range(19, 25) if jugador.get_numero() == 1 else range(1, 7)
+
+    def puede_bear_off(self, jugador):
+        """Verifica si el jugador puede empezar a sacar fichas (todas en casa)."""
+        for pos in range(1, 25):
+            fichas = self.__board__.get_position(pos)
+            if fichas and fichas[-1].get_jugador() == jugador.get_numero():
+                if pos not in self.posicion_casa(jugador):
+                    return False
+        return True
+
+    def mover_ficha(self, origen: int, destino: int, dado: int):
         """
-        Intenta mover una ficha del jugador actual desde una posición a otra.
+        Intenta mover una ficha respetando todas las reglas de Backgammon.
         """
-        fichas = self.__board__.get_position(origen)
-        if not fichas:
-            print("No hay fichas en esa posición.")
+        jugador = self.get_jugador_actual()
+        num_jugador = jugador.get_numero()
+        direccion = self.direccion_movimiento(jugador)
+
+        # Reingreso desde la barra
+        if any(chk.esta_en_barra() and chk.get_jugador() == num_jugador 
+               for chk in self.__board__.get_bar(num_jugador)):
+            if origen != 0:
+                print("Debes reingresar desde la barra primero.")
+                return False
+
+        # Verificar dado disponible
+        if dado not in self.__dados_actuales__:
+            print("Ese dado no está disponible.")
             return False
 
-        jugador_actual = self.get_jugador_actual()
+        # Movimiento desde barra
+        if origen == 0:
+            entrada = 25 - dado if num_jugador == 1 else dado
+            destino = entrada
+            ficha = self.__board__.sacar_de_barra(num_jugador)
+            if not ficha:
+                print("No hay fichas en la barra.")
+                return False
+        else:
+            # Movimiento normal
+            fichas = self.__board__.get_position(origen)
+            if not fichas or fichas[-1].get_jugador() != num_jugador:
+                print("Movimiento ilegal.")
+                return False
+            ficha = self.__board__.sacar_ficha(origen)
 
-        # La ficha que se mueve es la última.
-        ficha = fichas[-1]
+        # Bearing off
+        if destino == 25 or destino == 0:
+            if not self.puede_bear_off(jugador):
+                print("No puedes sacar fichas aún.")
+                self.__board__.añadir_ficha(origen, ficha)  # devolver
+                return False
+            self.__board__.mandar_a_meta(num_jugador, ficha)
+            print(f"Jugador {num_jugador} sacó una ficha de {origen}.")
+        else:
+            destino_fichas = self.__board__.get_position(destino)
+            if destino_fichas and destino_fichas[-1].get_jugador() != num_jugador:
+                if len(destino_fichas) == 1:
+                    # Captura
+                    capturada = self.__board__.sacar_ficha(destino)
+                    self.__board__.mandar_a_barra(3 - num_jugador, capturada)
+                    print(f"Jugador {num_jugador} capturó una ficha en {destino}.")
+                else:
+                    print("Destino bloqueado.")
+                    self.__board__.añadir_ficha(origen, ficha)
+                    return False
+            self.__board__.añadir_ficha(destino, ficha)
+            print(f"Jugador {num_jugador} movió ficha de {origen} a {destino}.")
 
-        if ficha.get_jugador() != jugador_actual.get_numero():
-            print("Esa ficha no es tuya.")
-            return False
-
-        # Sacar la ficha del origen y añadirla al destino
-        ficha_movida = self.__board__.sacar_ficha(origen)
-        if ficha_movida is None:
-            print("Error al sacar la ficha.")
-            return False
-
-        self.__board__.añadir_ficha(destino, ficha_movida)
-        print(f"Jugador {jugador_actual.get_numero()} movió ficha de {origen} a {destino}")
+        # Marcar dado como usado
+        self.__dados_actuales__.remove(dado)
+        self.__dados_usados__.append(dado)
         return True
 
     def estado_juego(self):
-        """
-        Muestra en consola el estado actual del tablero.
-        """
+        """Muestra en consola el estado actual del tablero."""
         self.__board__.display()
 
     def juego_terminado(self):
-        """
-        Determina si el juego ha terminado.
-        """
+        """Determina si el juego ha terminado (todas fichas en meta)."""
         for player in self.__players__:
-            fichas_en_tablero = sum(
-                len(self.__board__.get_position(pos))
-                for pos in range(1, 25)
-                if self.__board__.get_position(pos)
-                and self.__board__.get_position(pos)[-1].get_jugador() == player.get_numero()
-            )
-            if fichas_en_tablero == 0:
-                print(f"¡Jugador {player.get_numero()} ({player.get_ficha()}) ganó el juego!")
+            if len(self.__board__.get_home(player.get_numero())) == 15:
+                print(f"¡Jugador {player.get_numero()} ({player.get_ficha()}) ganó!")
                 return True
         return False
 
     def jugar_turno(self):
         """
-        Maneja el turno completo de un jugador.
+        Maneja un turno completo del jugador actual.
         """
         jugador = self.get_jugador_actual()
         print(f"\nTurno del Jugador {jugador.get_numero()} ({jugador.get_ficha()})")
-
-        # Tirar dados
         self.tirar_dados()
 
-        try:
-            origen = int(input("Elige la posición de origen (1-24): "))
-            destino = int(input("Elige la posición de destino (1-24): "))
-            self.mover_ficha(origen, destino)
-        except ValueError:
-            print("Entrada inválida, turno perdido.")
+        while self.__dados_actuales__:
+            try:
+                origen = int(input("Origen (1-24, 0=barra): "))
+                destino = int(input("Destino (1-24, 0/25=meta): "))
+                dado = int(input(f"Elige dado {self.__dados_actuales__}: "))
+                self.mover_ficha(origen, destino, dado)
+            except ValueError:
+                print("Entrada inválida, intenta de nuevo.")
+            self.estado_juego()
 
-        self.estado_juego()
         self.cambiar_turno()
 
 if __name__ == "__main__":
     juego = BackgammonGame()
     juego.estado_juego()
-
     while not juego.juego_terminado():
         juego.jugar_turno()

@@ -5,6 +5,14 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
 - Pendiente: Agregar tests unitarios de la clase BackgammonGame.
 
+## [2025-09-19]
+### Updated
+- Clase `BackgammonGame`:
+  - Se completó la implementación de la lógica general del juego.
+  - Ahora controla todas las reglas base de Backgammon (turnos entre jugadores, movimiento de fichas, reentrada desde la barra obligatoria, lógica de dados, incluyendo tiradas dobles).
+    - Condiciones de victoria (todas las fichas en casa y metidas en meta).
+  - Métodos principales finalizados: `jugar_turno()`, `mover_ficha()`, `tirar_dados()`, `estado_juego()`, `juego_terminado()`.
+
 ## [2025-09-18]
 ### Updated
 - Arreglos en clase BackgammonGame
