@@ -3,7 +3,16 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 
 ## [Unreleased]
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
-- Pendiente: Agregar tests unitarios de la clase BackgammonGame.
+- Pendiente: Agregar más tests unitarios de la clase BackgammonGame.
+
+## [2025-09-21]
+### Added
+- Tests unitarios básicos de la clase `BackgammonGame`:
+  - `test_turno_inicial`: verifica que el juego inicia con el turno del jugador 1.
+  - `test_cambiar_turno`: verifica que el turno cambia correctamente entre jugadores.
+  - `test_tirar_dados_devuelve_valores`: verifica que los dados devuelven valores válidos (1–6).
+  - `test_direccion_movimiento`: verifica que cada jugador tiene la dirección correcta.
+  - `test_posicion_casa`: verifica que la casa de cada jugador esté en el rango correcto.
 
 ## [2025-09-19]
 ### Updated
