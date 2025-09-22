@@ -62,12 +62,10 @@ class BackgammonGame:
         num_jugador = jugador.get_numero()
         direccion = self.direccion_movimiento(jugador)
 
-        # Reingreso desde la barra
-        if any(chk.esta_en_barra() and chk.get_jugador() == num_jugador 
-               for chk in self.__board__.get_bar(num_jugador)):
-            if origen != 0:
-                print("Debes reingresar desde la barra primero.")
-                return False
+        # Si hay fichas en la barra, debe reingresar primero
+        if len(self.__board__.get_bar(num_jugador)) > 0 and origen != 0:
+            print("Debes reingresar desde la barra primero.")
+            return False
 
         # Verificar dado disponible
         if dado not in self.__dados_actuales__:
@@ -90,7 +88,7 @@ class BackgammonGame:
                 return False
             ficha = self.__board__.sacar_ficha(origen)
 
-        # Bearing off
+        # Bearing off (sacar ficha del tablero)
         if destino == 25 or destino == 0:
             if not self.puede_bear_off(jugador):
                 print("No puedes sacar fichas aún.")

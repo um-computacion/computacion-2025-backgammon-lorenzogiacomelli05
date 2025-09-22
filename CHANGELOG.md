@@ -5,6 +5,10 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
 - Pendiente: Agregar más tests unitarios de la clase BackgammonGame.
 
+## [2025-09-22]
+### Added
+- Cambios y modificaciones de clases Board y BackgammonGame y sus respectivas clases de tests unitarios.
+
 ## [2025-09-21]
 ### Added
 - Tests unitarios básicos de la clase `BackgammonGame`:
