@@ -45,6 +45,49 @@ class Board:
             return self.__positions__[pos].pop()
         return None
 
+    def mandar_a_barra(self, jugador: int, ficha: Checker):
+        """Manda una ficha a la barra del jugador indicado."""
+        ficha.mandar_a_barra()
+        self.__bar__[jugador].append(ficha)
+
+    def sacar_de_barra(self, jugador: int):
+        """Saca y devuelve una ficha de la barra del jugador (si hay)."""
+        if self.__bar__[jugador]:
+            ficha = self.__bar__[jugador].pop()
+            ficha.sacar_de_barra()
+            return ficha
+        return None
+
+    def mandar_a_meta(self, jugador: int, ficha: Checker):
+        """Manda una ficha al home (meta) del jugador."""
+        ficha.mandar_a_meta()
+        self.__home__[jugador].append(ficha)
+
+    def get_bar(self, jugador: int):
+        """Devuelve las fichas en la barra de un jugador."""
+        return self.__bar__[jugador]
+
+    def get_home(self, jugador: int):
+        """Devuelve las fichas en la meta de un jugador."""
+        return self.__home__[jugador]
+
+    def set_posicion(self, pos: int, jugador, cantidad: int):
+        """
+        Coloca 'cantidad' de fichas de un jugador en una posición.
+        Sobrescribe lo que hubiera en esa posición.
+        """
+        if 1 <= pos <= 24:
+            self.__positions__[pos] = [Checker(jugador.get_numero()) for _ in range(cantidad)]
+
+    def vaciar_fichas(self, jugador):
+        """
+        Elimina todas las fichas de un jugador del tablero
+        y las coloca directamente en el home.
+        """
+        for i in range(1, 25):
+            self.__positions__[i] = [c for c in self.__positions__[i] if c.get_jugador() != jugador.get_numero()]
+        self.__home__[jugador.get_numero()] = [Checker(jugador.get_numero()) for _ in range(15)]
+
     # ==============================
     # Representación del tablero
     # ==============================
@@ -99,3 +142,4 @@ class Board:
 if __name__ == "__main__":
     board = Board()
     board.display()
+
