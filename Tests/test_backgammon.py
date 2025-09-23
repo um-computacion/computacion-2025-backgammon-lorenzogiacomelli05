@@ -57,6 +57,34 @@ class TestBackgammonGame(unittest.TestCase):
         self.game.board._Board__home__["X"] = []
         self.assertFalse(self.game.esta_terminado())
 
+    # Tests de integración
+
+    def test_tirar_y_mover_ficha_integra(self):
+        """Simula una tirada y un movimiento válido usando el dado tirado."""
+        tirada = self.game.tirar_dados()
+        paso = tirada[0]
+        origen = 0
+        destino = paso
+        if self.game.puede_mover(origen, paso):
+            exito = self.game.mover(origen, paso)
+            self.assertTrue(exito)
+            self.assertEqual(len(self.game.movimientos), len(tirada) - 1)
+
+    def test_cambiar_turno_y_tirar_dados(self):
+        """Verifica que el ciclo de cambiar turno y tirar dados funcione."""
+        self.assertEqual(self.game.turno, 1)
+        self.game.cambiar_turno()
+        self.assertEqual(self.game.turno, 2)
+        tirada = self.game.tirar_dados()
+        self.assertTrue(all(1 <= d <= 6 for d in tirada))
+        self.assertGreater(len(self.game.movimientos), 0)
+
+    def test_estado_juego_no_rompe(self):
+        """El método estado_juego debe ejecutarse sin lanzar errores."""
+        try:
+            self.game.estado_juego()
+        except Exception as e:
+            self.fail(f"estado_juego lanzó excepción: {e}")
 
 if __name__ == "__main__":
     unittest.main()

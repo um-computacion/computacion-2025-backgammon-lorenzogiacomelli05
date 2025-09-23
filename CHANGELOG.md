@@ -3,7 +3,13 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 
 ## [Unreleased]
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
-- Pendiente: Agregar más tests unitarios de la clase BackgammonGame.
+
+## [2025-09-23]
+### Added
+- Nuevos tests de integración en `test_backgammon`:
+  - `test_tirar_y_mover_ficha_integra`: simula una tirada y movimiento válido consumiendo un dado.
+  - `test_cambiar_turno_y_tirar_dados`: verifica que el cambio de turno y nueva tirada funcionen correctamente.
+  - `test_estado_juego_no_rompe`: asegura que `estado_juego()` no arroje excepciones al ejecutarse.
 
 ## [2025-09-22]
 ### Added
