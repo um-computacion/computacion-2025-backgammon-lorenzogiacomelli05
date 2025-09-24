@@ -2,38 +2,57 @@ import unittest
 from core.Checker import Checker
 
 class TestChecker(unittest.TestCase):
+    """
+    Tests unitarios para la clase Checker.
+    Verifican que una ficha (Checker) cumpla con sus responsabilidades:
+    pertenencia a un jugador y control de estado (barra/meta).
+    """
 
-    # verifica que get_jugador devuelve el jugador correcto
-    def test_get_jugador(self):
-        c = Checker(1)
-        self.assertEqual(c.get_jugador(), 1)
+    def setUp(self):
+        """Se crea una ficha de ejemplo antes de cada test."""
+        self.ficha = Checker(1)  # ficha del jugador 1
 
-    # al crear la ficha no está en barra ni en meta
-    def test_inicial_no_barra_meta(self):
-        c = Checker(2)
-        self.assertFalse(c.esta_en_barra())
-        self.assertFalse(c.esta_en_meta())
+    def test_jugador_asignado_correctamente(self):
+        """La ficha debe recordar a qué jugador pertenece."""
+        self.assertEqual(self.ficha.get_jugador(), 1)
 
-    # probar que mandar_a_barra pone la ficha en barra y no en meta
+    def test_estado_inicial(self):
+        """Al crearse, la ficha no debe estar ni en barra ni en meta."""
+        self.assertFalse(self.ficha.esta_en_barra())
+        self.assertFalse(self.ficha.esta_en_meta())
+
     def test_mandar_a_barra(self):
-        c = Checker(1)
-        c.mandar_a_barra()
-        self.assertTrue(c.esta_en_barra())
-        self.assertFalse(c.esta_en_meta())
+        """La ficha puede enviarse a la barra."""
+        self.ficha.mandar_a_barra()
+        self.assertTrue(self.ficha.esta_en_barra())
+        self.assertFalse(self.ficha.esta_en_meta())
 
-    # probar que sacar_de_barra saca la ficha de la barra
     def test_sacar_de_barra(self):
-        c = Checker(1)
-        c.mandar_a_barra()
-        c.sacar_de_barra()
-        self.assertFalse(c.esta_en_barra())
+        """Una ficha en la barra puede salir de ella."""
+        self.ficha.mandar_a_barra()
+        self.ficha.sacar_de_barra()
+        self.assertFalse(self.ficha.esta_en_barra())
+        self.assertFalse(self.ficha.esta_en_meta())
 
-    # probar que mandar_a_meta pone la ficha en meta y no en barra
     def test_mandar_a_meta(self):
-        c = Checker(2)
-        c.mandar_a_meta()
-        self.assertTrue(c.esta_en_meta())
-        self.assertFalse(c.esta_en_barra())
+        """La ficha puede moverse a la meta (fuera del tablero)."""
+        self.ficha.mandar_a_meta()
+        self.assertTrue(self.ficha.esta_en_meta())
+        self.assertFalse(self.ficha.esta_en_barra())
+
+    def test_cambio_estado_barra_a_meta(self):
+        """Si una ficha estaba en barra y va a meta, debe resetear barra."""
+        self.ficha.mandar_a_barra()
+        self.ficha.mandar_a_meta()
+        self.assertTrue(self.ficha.esta_en_meta())
+        self.assertFalse(self.ficha.esta_en_barra())
+
+    def test_cambio_estado_meta_a_barra(self):
+        """Si una ficha estaba en meta y vuelve a barra, debe resetear meta."""
+        self.ficha.mandar_a_meta()
+        self.ficha.mandar_a_barra()
+        self.assertTrue(self.ficha.esta_en_barra())
+        self.assertFalse(self.ficha.esta_en_meta())
 
 
 if __name__ == "__main__":

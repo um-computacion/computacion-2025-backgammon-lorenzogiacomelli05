@@ -3,6 +3,16 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 
 ## [Unreleased]
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
+- Pendiente: Refactorizar el resto de clases y sus tests de acuerdo con los principios SOLID
+
+## [2025-09-24]
+### Added
+- Refactorización y Tests: Checker: Refactorizada la clase `Checker`, siguiendo los principios SOLID.
+- Implementados tests unitarios para `Checker`:
+  - Verificación del jugador asignado.
+  - Estados iniciales correctos (ni en barra ni en meta).
+  - Métodos de cambio de estado (`mandar_a_barra`, `sacar_de_barra`, `mandar_a_meta`).
+  - Casos de transición entre barra y meta.
 
 ## [2025-09-23]
 ### Added
