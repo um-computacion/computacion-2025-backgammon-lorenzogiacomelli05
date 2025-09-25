@@ -5,6 +5,11 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
 - Pendiente: Refactorizar el resto de clases y sus tests de acuerdo con los principios SOLID
 
+## [2025-09-25]
+### Added
+- Refactorización y Tests: Player y Board: Refactorizada la clase `Board` y `Player`, siguiendo los principios SOLID.
+- Implementados tests unitarios para `Board`y `Player`
+
 ## [2025-09-24]
 ### Added
 - Refactorización y Tests: Checker: Refactorizada la clase `Checker`, siguiendo los principios SOLID.
