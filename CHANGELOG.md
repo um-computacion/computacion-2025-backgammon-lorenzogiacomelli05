@@ -5,6 +5,16 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
 - Pendiente: Refactorizar el resto de clases y sus tests de acuerdo con los principios SOLID
 
+## [2025-09-26]
+### Refactorización de Dice
+- Se refactorizó la clase `Dice` siguiendo los principios SOLID. 
+### Tests de Dice
+- Se validan tiradas dobles y no dobles.  
+- Se prueba el uso correcto e incorrecto de valores (`usar_valor`).  
+- Se comprueba que `individual_values()` siempre devuelva exactamente dos valores.  
+- Se asegura que `valores_usados()` refleje correctamente los valores utilizados.  
+
+
 ## [2025-09-25]
 ### Added
 - Refactorización y Tests: Player y Board: Refactorizada la clase `Board` y `Player`, siguiendo los principios SOLID.
