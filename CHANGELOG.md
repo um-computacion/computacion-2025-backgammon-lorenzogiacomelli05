@@ -3,17 +3,16 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 
 ## [Unreleased]
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
-- Pendiente: Refactorizar el resto de clases y sus tests de acuerdo con los principios SOLID
+- Pendiente: Refactorizar la clase de tests unitarios de BackgammonGame. 
+
+## [2025-09-28]
+### Added
+- Refactorización de la clase BackgammonGame siguiendo los principios SOLID
 
 ## [2025-09-26]
-### Refactorización de Dice
-- Se refactorizó la clase `Dice` siguiendo los principios SOLID. 
-### Tests de Dice
-- Se validan tiradas dobles y no dobles.  
-- Se prueba el uso correcto e incorrecto de valores (`usar_valor`).  
-- Se comprueba que `individual_values()` siempre devuelva exactamente dos valores.  
-- Se asegura que `valores_usados()` refleje correctamente los valores utilizados.  
-
+### Added
+- Refactorización de Dice: Se refactorizó la clase `Dice` siguiendo los principios SOLID. 
+- Tests de Dice: Se validan tiradas dobles y no dobles. Se prueba el uso correcto e incorrecto de valores (`usar_valor`). Se comprueba que `individual_values()` siempre devuelva exactamente dos valores. Se asegura que `valores_usados()` refleje correctamente los valores utilizados.  
 
 ## [2025-09-25]
 ### Added
