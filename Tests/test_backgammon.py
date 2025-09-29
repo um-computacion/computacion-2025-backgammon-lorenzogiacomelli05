@@ -1,90 +1,134 @@
 import unittest
 from core.BackgammonGame import BackgammonGame
-from core.Checker import Checker
+from core.Board import Board
 
 class TestBackgammonGame(unittest.TestCase):
     """
     Tests unitarios para la clase BackgammonGame.
+    Se cubren métodos de turnos, dados, posiciones, movimiento de fichas
+    y condiciones de victoria.
     """
 
     def setUp(self):
-        self.game = BackgammonGame()
+        """Configura un nuevo juego antes de cada test."""
+        self.__game__ = BackgammonGame()
 
-    def test_turno_inicial(self):
-        """El turno inicial debe ser del jugador 1."""
-        self.assertEqual(self.game.turno, 1)
+    def test_jugador_actual_es_correcto(self):
+        """El jugador inicial debe ser el jugador 1 con ficha 'X'."""
+        jugador = self.__game__.get_jugador_actual()
+        self.assertEqual(jugador.get_numero(), 1)
+        self.assertEqual(jugador.get_ficha(), "X")
 
-    def test_tirar_dados_normal(self):
-        """La tirada de dados devuelve 2 movimientos (o 4 si son dobles)."""
-        tirada = self.game.tirar_dados()
-        self.assertTrue(all(1 <= d <= 6 for d in tirada))
-        self.assertIn(len(tirada), [2, 4])
+    def test_cambiar_turno_alterna_jugador(self):
+        """Al cambiar turno debe alternarse entre jugador 1 y 2."""
+        jugador_inicial = self.__game__.get_jugador_actual()
+        self.__game__.cambiar_turno()
+        jugador_despues = self.__game__.get_jugador_actual()
+        self.assertNotEqual(jugador_inicial.get_numero(), jugador_despues.get_numero())
 
-    def test_cambiar_turno(self):
-        """El turno debe cambiar entre jugador 1 y 2, y vaciar movimientos."""
-        self.game.tirar_dados()
-        self.game.cambiar_turno()
-        self.assertEqual(self.game.turno, 2)
-        self.assertEqual(self.game.movimientos, [])
-        self.game.cambiar_turno()
-        self.assertEqual(self.game.turno, 1)
+    def test_tirar_dados_devuelve_lista_valores(self):
+        """Tirar dados debe devolver una lista de valores entre 1 y 6."""
+        valores = self.__game__.tirar_dados()
+        self.assertTrue(isinstance(valores, list))
+        self.assertTrue(all(1 <= v <= 6 for v in valores))
 
-    def test_puede_mover_fuera_de_rango(self):
-        """No debe permitir mover si el destino queda fuera del tablero."""
-        self.assertFalse(self.game.puede_mover(23, 6))  # jugador 1 → fuera
+    def test_direccion_movimiento_jugador1_es_positiva(self):
+        """El jugador 1 debe moverse en dirección positiva (1)."""
+        jugador1 = self.__game__.get_jugador_actual()
+        self.assertEqual(self.__game__.direccion_movimiento(jugador1), 1)
 
-    def test_mover_valido(self):
-        """Debe permitir mover si el movimiento es válido y consumir el dado."""
-        self.game.movimientos = [1]
-        origen = 0
-        destino = 1
-        self.assertTrue(self.game.puede_mover(origen, 1))
-        self.assertTrue(self.game.mover(origen, 1))
-        self.assertEqual(len(self.game.movimientos), 0)
-        # ahora debe haber al menos una ficha en la casilla destino
-        self.assertGreater(len(self.game.board._Board__positions__[destino]), 0)
+    def test_direccion_movimiento_jugador2_es_negativa(self):
+        """El jugador 2 debe moverse en dirección negativa (-1)."""
+        self.__game__.cambiar_turno()
+        jugador2 = self.__game__.get_jugador_actual()
+        self.assertEqual(self.__game__.direccion_movimiento(jugador2), -1)
 
-    def test_mover_invalido_consumo(self):
-        """No debe mover si el paso no está en la lista de movimientos."""
-        self.game.movimientos = [3]
-        self.assertFalse(self.game.mover(0, 2))
-        self.assertEqual(self.game.movimientos, [3])  # no lo consumió
+    def test_posicion_casa_jugador1(self):
+        """La casa del jugador 1 debe ser posiciones 19 a 24."""
+        jugador1 = self.__game__.get_jugador_actual()
+        self.assertEqual(list(self.__game__.posicion_casa(jugador1)), list(range(19, 25)))
 
-    def test_juego_terminado(self):
-        """Debe detectar cuando un jugador metió todas las fichas en home."""
-        self.game.board._Board__home__["X"] = [Checker(1) for _ in range(15)]
-        self.assertTrue(self.game.esta_terminado())
-        self.game.board._Board__home__["X"] = []
-        self.assertFalse(self.game.esta_terminado())
+    def test_posicion_casa_jugador2(self):
+        """La casa del jugador 2 debe ser posiciones 1 a 6."""
+        self.__game__.cambiar_turno()
+        jugador2 = self.__game__.get_jugador_actual()
+        self.assertEqual(list(self.__game__.posicion_casa(jugador2)), list(range(1, 7)))
 
-    # Tests de integración
+    def test_juego_terminado_es_false_al_inicio(self):
+        """Al inicio ningún jugador debe tener victoria."""
+        self.assertFalse(self.__game__.juego_terminado())
 
-    def test_tirar_y_mover_ficha_integra(self):
-        """Simula una tirada y un movimiento válido usando el dado tirado."""
-        tirada = self.game.tirar_dados()
-        paso = tirada[0]
-        origen = 0
-        destino = paso
-        if self.game.puede_mover(origen, paso):
-            exito = self.game.mover(origen, paso)
-            self.assertTrue(exito)
-            self.assertEqual(len(self.game.movimientos), len(tirada) - 1)
+    def test_get_board_devuelve_instancia_board(self):
+        """El tablero devuelto debe ser una instancia de Board."""
+        tablero = self.__game__.get_board()
+        self.assertTrue(isinstance(tablero, Board))
 
-    def test_cambiar_turno_y_tirar_dados(self):
-        """Verifica que el ciclo de cambiar turno y tirar dados funcione."""
-        self.assertEqual(self.game.turno, 1)
-        self.game.cambiar_turno()
-        self.assertEqual(self.game.turno, 2)
-        tirada = self.game.tirar_dados()
-        self.assertTrue(all(1 <= d <= 6 for d in tirada))
-        self.assertGreater(len(self.game.movimientos), 0)
+    def test_get_dados_actuales_vacio_al_inicio(self):
+        """Antes de tirar, los dados actuales deben estar vacíos."""
+        self.assertEqual(self.__game__.get_dados_actuales(), [])
 
-    def test_estado_juego_no_rompe(self):
-        """El método estado_juego debe ejecutarse sin lanzar errores."""
-        try:
-            self.game.estado_juego()
-        except Exception as e:
-            self.fail(f"estado_juego lanzó excepción: {e}")
+    def test_get_dados_usados_vacio_al_inicio(self):
+        """Al inicio, ningún dado debe estar usado."""
+        self.assertEqual(self.__game__.get_dados_usados(), [])
 
-if __name__ == "__main__":
-    unittest.main()
+    def test_mover_ficha_movimiento_invalido_sin_dado(self):
+        """Intentar mover sin tirar dados debe fallar."""
+        valido = self.__game__.mover_ficha(1, 2, 3)
+        self.assertFalse(valido)
+
+    def test_mover_ficha_movimiento_invalido_posicion_vacia(self):
+        """No se debe poder mover desde una posición sin fichas."""
+        self.__game__.tirar_dados()
+        dado = self.__game__.get_dados_actuales()[0]
+        valido = self.__game__.mover_ficha(5, 5 + dado, dado)
+        self.assertFalse(valido)
+
+    def test_mover_ficha_valido(self):
+        """Mover una ficha desde la posición inicial debe ser válido."""
+        self.__game__.tirar_dados()
+        dado = self.__game__.get_dados_actuales()[0]
+        origen = 1
+        destino = origen + dado
+        valido = self.__game__.mover_ficha(origen, destino, dado)
+        self.assertTrue(valido)
+
+    def test_mover_ficha_destino_bloqueado(self):
+        """Un destino con 2 fichas rivales debe bloquear el movimiento."""
+        self.__game__.tirar_dados()
+        dado = self.__game__.get_dados_actuales()[0]
+
+# Forzar dos fichas del jugador 2 en el destino
+        destino = 1 + dado
+        self.__game__.cambiar_turno()
+        ficha1 = self.__game__.get_board().sacar_ficha(12)
+        ficha2 = self.__game__.get_board().sacar_ficha(13)
+        self.__game__.get_board().añadir_ficha(destino, ficha1)
+        self.__game__.get_board().añadir_ficha(destino, ficha2)
+        self.__game__.cambiar_turno()
+
+        valido = self.__game__.mover_ficha(1, destino, dado)
+        self.assertFalse(valido)
+
+    def test_juego_terminado_true_cuando_jugador1_gana(self):
+        """El juego debe terminar si el jugador 1 tiene sus 15 fichas en la meta."""
+        board = self.__game__.get_board()
+        jugador1 = self.__game__.get_jugador_actual()
+
+# Enviar manualmente 15 fichas del jugador 1 a la meta
+        for _ in range(15):
+            ficha = board.sacar_ficha(1)  # saca del punto inicial del jugador 1
+            board.mandar_a_meta(jugador1.get_numero(), ficha)
+
+        self.assertTrue(self.__game__.juego_terminado())
+
+    def test_juego_terminado_false_con_fichas_faltantes(self):
+        """El juego no debe terminar si un jugador aún no tiene todas sus fichas en la meta."""
+        board = self.__game__.get_board()
+        jugador1 = self.__game__.get_jugador_actual()
+
+# Enviar menos de 15 fichas a la meta
+        for _ in range(10):
+            ficha = board.sacar_ficha(1)
+            board.mandar_a_meta(jugador1.get_numero(), ficha)
+
+        self.assertFalse(self.__game__.juego_terminado())

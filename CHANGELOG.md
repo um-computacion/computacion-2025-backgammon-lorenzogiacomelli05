@@ -3,7 +3,10 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 
 ## [Unreleased]
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
-- Pendiente: Refactorizar la clase de tests unitarios de BackgammonGame. 
+
+## [2025-09-29]
+### Added
+- Refactorización de la clase de tests unitarios de BackgammonGame siguiendo los principios SOLID
 
 ## [2025-09-28]
 ### Added
