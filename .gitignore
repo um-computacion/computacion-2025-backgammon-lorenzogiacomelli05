@@ -1,1 +1,7 @@
 venv/
+
+_pycache_/
+*.py[cod]
+*.pyo
+*.log
+.cache/
