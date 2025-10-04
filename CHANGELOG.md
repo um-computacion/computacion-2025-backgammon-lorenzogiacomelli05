@@ -5,6 +5,13 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
 - Pendiente: Completar validaciones de movimientos en el CLI (ejemplo: verificar opciones disponibles antes de pedir origen/destino). Implementar menú inicial (ej: "1. Jugar / 2. Salir"). Agregar mensajes más detallados para movimientos (capturas, bloqueos, bearing off). Mejorar visualización del tablero en consola para hacerlo más amigable.
 
+## [2025-10-04] 
+### Added
+- Ampliación del esqueleto del `BackgammonCLI` para permitir interacción más guiada con el usuario: 
+- Implementado método `mostrar_ayuda()` que muestra una guía con ejemplos de comandos y acciones.   
+- Se agregó lógica básica de entrada con manejo de errores y mensajes claros al usuario.  
+- El flujo general del juego desde terminal ahora incluye: Bienvenida inicial. Tirada de dados. Movimiento de fichas con verificación de validez. Cambio automático de turno. Detección de final de partida.  
+
 ## [2025-10-01] 
 ### Added
 - Primer esqueleto de `BackgammonCLI` para jugar desde la terminal: Tirar dados. Mover fichas. Mostrar el tablero en consola. Cambiar turno automáticamente. Detectar fin del juego.
