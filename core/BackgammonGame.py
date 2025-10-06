@@ -173,3 +173,16 @@ class BackgammonGame:
             list[int]: valores de los dados usados.
         """
         return self.__dados_usados__
+
+    def get_ganador(self):
+        """
+        Devuelve el jugador que ganó la partida, si la condición de victoria se cumplió.
+        
+        Returns:
+            Player | None: jugador ganador si todas sus fichas están en la meta,
+            o None si aún no hay un ganador.
+        """
+        for player in self.__players__:
+            if len(self.__board__.get_home(player.get_numero())) == 15:
+                return player
+        return None
