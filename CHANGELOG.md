@@ -3,7 +3,13 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 
 ## [Unreleased]
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
-- Pendiente: Completar validaciones de movimientos en el CLI (ejemplo: verificar opciones disponibles antes de pedir origen/destino). Implementar menú inicial (ej: "1. Jugar / 2. Salir"). Agregar mensajes más detallados para movimientos (capturas, bloqueos, bearing off). Mejorar visualización del tablero en consola para hacerlo más amigable.
+- Pendiente: Implementar una opción de “reanudar partida” en el menú principal. Incorporar validaciones más descriptivas al ingresar movimientos inválidos (por ejemplo, indicar por qué no es válido).
+
+## [2025-10-06] 
+### Added
+- Se agregó el método `mostrar_resultado_final()` en `BackgammonCLI` para mostrar el ganador al finalizar la partida.
+- Se implementó en `BackgammonGame` la función `get_ganador()` para identificar qué jugador completó todas sus fichas.
+- Se mejoró la interacción del CLI al finalizar el juego.
 
 ## [2025-10-04] 
 ### Added
