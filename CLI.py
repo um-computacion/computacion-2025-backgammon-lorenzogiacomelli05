@@ -3,23 +3,25 @@ from core.BackgammonGame import BackgammonGame
 class BackgammonCLI:
     """
     Clase que representa la interfaz de línea de comandos (CLI) del juego de Backgammon.
-    Se encarga de: Mostrar el estado del juego y los tableros. Recibir entradas del usuario desde la terminal. Delegar toda la lógica al núcleo del juego (BackgammonGame).
+    Se encarga de gestionar toda la interacción con el usuario a través de la terminal,
+    mostrando el tablero, procesando entradas y comunicando los resultados del juego.
     """
 
     def __init__(self):
         """
         Constructor del CLI. Crea una nueva instancia del juego de Backgammon.
         Atributos:
-            self.__game__ (BackgammonGame): instancia del núcleo del juego que 
+            self.__game__ (BackgammonGame): instancia principal del juego que
             contiene toda la lógica interna del Backgammon.
         """
         self.__game__ = BackgammonGame()
 
+    # INTERFAZ
+
     def mostrar_estado(self):
         """
         Muestra en la consola el estado actual del tablero del juego.
-        Se invoca tras cada movimiento para que el jugador pueda visualizar 
-        la distribución actual de las fichas en el tablero.
+        Incluye una vista clara de las posiciones y fichas actuales.
         """
         board = self.__game__.get_board()
         print("\n=== Estado del Tablero ===")
@@ -28,9 +30,7 @@ class BackgammonCLI:
 
     def mostrar_ayuda(self):
         """
-        Muestra las instrucciones básicas del juego y los comandos que el 
-        usuario puede ingresar en la terminal.
-        Es útil para jugadores nuevos o para recordar los movimientos válidos.
+        Muestra las instrucciones básicas del juego y los comandos válidos.
         """
         print("\n=== Guía rápida de comandos ===")
         print("Durante tu turno, deberás ingresar:")
@@ -39,99 +39,136 @@ class BackgammonCLI:
         print(" - Dado: valor del dado que vas a usar para ese movimiento.")
         print("\nEjemplo: si tiraste [3, 5], podés mover desde el punto 12 al 9 (usando 3).")
         print("El sistema te avisará si un movimiento no es válido.")
-        print("\nPodés escribir 'salir' en cualquier momento para terminar el juego.")
+        print("\nComandos disponibles durante la partida:")
+        print(" - 'salir': finaliza la partida inmediatamente.")
+        print(" - 'ayuda': muestra nuevamente esta guía.")
         print("===============================\n")
 
     def mostrar_resultado_final(self):
         """
         Muestra en consola el resultado final de la partida cuando hay un ganador.
-        
-        Se invoca automáticamente al finalizar el juego, mostrando qué jugador
-        logró sacar todas sus fichas del tablero. Si por alguna razón no hay 
-        un ganador (empate o interrupción), informa el estado correspondiente.
         """
         ganador = self.__game__.get_ganador()
         print("\n=== Resultado Final ===")
         if ganador:
             print(f"El Jugador {ganador.get_numero()} ({ganador.get_ficha()}) ganó.")
         else:
-            print("No se pudo determinar un ganador.")
+            print("La partida terminó sin ganador.")
         print("========================\n")
+
+    def mostrar_dados(self, valores):
+        """
+        Muestra en consola los valores actuales de los dados.
+        """
+        print(f"\nDados obtenidos: {valores}\n")
+
+    def mostrar_menu_principal(self):
+        """
+        Muestra el menú principal y devuelve la opción elegida por el usuario.
+        """
+        print("=== Menú Principal ===")
+        print("1: Jugar")
+        print("2: Ver ayuda")
+        print("3: Salir")
+        return input("\nSelecciona una opción (1-3): ").strip()
+
+    # CONTROL DE FLUJO
+
+    def procesar_comando(self, comando):
+        """
+        Procesa comandos de texto que el usuario puede ingresar en cualquier momento.
+        Args:
+            comando (str): texto ingresado por el usuario.
+        Returns:
+            bool: True si el programa debe continuar, False si debe finalizar.
+        """
+        if comando.lower() == "salir":
+            print("\nJuego interrumpido por el usuario.")
+            return False
+        elif comando.lower() == "ayuda":
+            self.mostrar_ayuda()
+            return True
+        return True
 
     def ejecutar_turno(self):
         """
-        Controla la ejecución completa de un turno del jugador actual.
-        Incluye: Tirar los dados. Permitir al jugador mover fichas según los valores obtenidos. Validar que los movimientos sean correctos. Pasar el turno al siguiente jugador cuando se usen todos los dados.
+        Ejecuta el turno completo del jugador actual: Lanza los dados, solicita los movimientos y los valida. Finaliza cuando se usan todos los dados o se gana la partida.
         """
         jugador = self.__game__.get_jugador_actual()
         print("\n------------------------------------------")
         print(f"Turno del Jugador {jugador.get_numero()} ({jugador.get_ficha()})")
         print("------------------------------------------")
 
-        # Tirar dados
+        # Tirar los dados
         valores = self.__game__.tirar_dados()
-        print(f"Dados obtenidos: {valores}")
+        self.mostrar_dados(valores)
 
-        # Mientras haya dados disponibles
+# Mientras haya dados disponibles, el jugador puede seguir moviendo fichas
         while self.__game__.get_dados_actuales():
+# Mostrar el estado actual del tablero antes de cada movimiento
             self.mostrar_estado()
+
             try:
-                origen_input = input("Origen (1-24, 0=barra): ").strip()
-                if origen_input.lower() == "salir":
-                    print("Juego interrumpido por el usuario.")
+# --- Solicitar punto de origen ---
+# El jugador indica desde qué punto quiere mover una ficha.
+# Puede ser un número del 1 al 24, o 0 si está sacando desde la barra.
+                origen_input = input("Origen (1-24, 0=barra, 'salir'=terminar): ").strip()
+                if not self.procesar_comando(origen_input):
                     exit(0)
                 origen = int(origen_input)
 
-                destino_input = input("Destino (1-24, 0 o 25=meta): ").strip()
-                if destino_input.lower() == "salir":
-                    print("Juego interrumpido por el usuario.")
+# --- Solicitar punto de destino ---
+# El jugador indica a qué punto moverá la ficha.
+# Puede ser un número del 1 al 24, o 25 si está sacando del tablero.
+                destino_input = input("Destino (1-24, 25=meta, 'salir'=terminar): ").strip()
+                if not self.procesar_comando(destino_input):
                     exit(0)
                 destino = int(destino_input)
 
-                dado_input = input(f"Elige dado {self.__game__.get_dados_actuales()}: ").strip()
-                if dado_input.lower() == "salir":
-                    print("Juego interrumpido por el usuario.")
+# --- Seleccionar el dado a usar ---
+# Se muestran los dados disponibles y se pide cuál utilizar para este movimiento.
+                dado_input = input(f"Selecciona dado {self.__game__.get_dados_actuales()}: ").strip()
+                if not self.procesar_comando(dado_input):
                     exit(0)
                 dado = int(dado_input)
 
-                # Intentar realizar el movimiento
+# --- Intentar realizar el movimiento ---
+# Se envían los valores al núcleo del juego, que valida y ejecuta el movimiento.
                 if self.__game__.mover_ficha(origen, destino, dado):
                     print("Movimiento realizado correctamente.")
-                    # Comprobación inmediata de victoria
+
+# Verificar si con este movimiento se completó la partida
                     if self.__game__.juego_terminado():
                         self.mostrar_resultado_final()
                         return
                 else:
-                    print("Movimiento inválido. Intenta de vuelta.")
+# Movimiento inválido por reglas del juego 
+                    print("Movimiento inválido. Intenta nuevamente.")
+
+# --- Manejo de errores comunes ---
             except ValueError:
-                print("Entrada inválida. Ingresa solo números.")
+# El jugador ingresó texto o un número inválido
+                print("Entrada inválida. Solo se permiten números enteros.")
             except Exception as e:
+# Captura cualquier otro error imprevisto sin romper el juego
                 print(f"Error: {str(e)}")
 
-        # Cambiar turno al finalizar los movimientos
+        # Cambiar turno
+        print("\nFin del turno.")
         self.__game__.cambiar_turno()
-        input("Enter para siguiente turno...")
+        input("Presiona Enter para continuar con el siguiente jugador...")
 
     def iniciar(self):
         """
         Inicia el ciclo principal del juego de Backgammon en la terminal.
-        Permite al usuario elegir entre:
-        1. Comenzar una partida.
-        2. Ver la ayuda de comandos.
-        3. Salir del juego.
-        Cuando se selecciona “Jugar”, se ejecuta el bucle principal del juego
-        hasta que uno de los jugadores cumple la condición de victoria.
         """
         print("=== Bienvenido al Backgammon ===")
-        print("Este es un juego por turnos. Se alternan los jugadores hasta que uno gane.\n")
 
         while True:
-            print("1: Jugar una partida")
-            print("2: Ver ayuda")
-            print("3: Salir")
-            opcion = input("\nSelecciona una opción (1-3): ").strip()
+            opcion = self.mostrar_menu_principal()
 
             if opcion == "1":
+                print("\n Iniciando...\n")
                 self.mostrar_estado()
                 while not self.__game__.juego_terminado():
                     self.ejecutar_turno()
@@ -143,7 +180,7 @@ class BackgammonCLI:
                 print("Gracias por jugar al Backgammon.")
                 break
             else:
-                print("Opción inválida. Elige 1, 2 o 3.\n")
+                print("Opción inválida. Elegí 1, 2 o 3.\n")
 
 if __name__ == "__main__":
     cli = BackgammonCLI()

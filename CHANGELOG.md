@@ -3,7 +3,13 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 
 ## [Unreleased]
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
-- Pendiente: Implementar una opción de “reanudar partida” en el menú principal. Incorporar validaciones más descriptivas al ingresar movimientos inválidos (por ejemplo, indicar por qué no es válido).
+- Pendiente: Incluir opción para reiniciar partida desde el menú principal sin reiniciar el programa. Implementar comando `"estado"` o `"tablero"` que permita ver el tablero en cualquier momento.
+
+## [2025-10-08] 
+### Added
+- Se integró el método `procesar_comando()` para manejar comandos especiales desde la terminal (por ejemplo, `salir`, `ayuda`, etc.).
+- Se añadió control de errores robusto (`ValueError` y excepciones generales) para evitar interrupciones inesperadas durante la partida.
+- Se incluyó verificación inmediata de condición de victoria tras cada movimiento, con salida automática al final del juego.
 
 ## [2025-10-06] 
 ### Added
