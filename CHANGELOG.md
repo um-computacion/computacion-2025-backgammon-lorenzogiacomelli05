@@ -5,6 +5,7 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
 - Pendiente: Implementar comando `"estado"` o `"tablero"` que permita ver el tablero en cualquier momento.
 
+
 ## [2025-10-09] 
 ### Added
 - Implmentación de función `reiniciar_partida()` desde el menú prinicpal del Backgammon, así no tener que cerrar el programa cada vez que se quiera iniciar una nueva partida.

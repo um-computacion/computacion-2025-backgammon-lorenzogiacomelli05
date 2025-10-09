@@ -16,10 +16,8 @@ class BackgammonCLI:
         """
         self.__game__ = BackgammonGame()
 
-    # =====================
     # MÉTODOS DE INTERFAZ
-    # =====================
-
+    
     def mostrar_estado(self):
         """
         Muestra en la consola el estado actual del tablero del juego.
