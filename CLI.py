@@ -16,7 +16,9 @@ class BackgammonCLI:
         """
         self.__game__ = BackgammonGame()
 
-    # INTERFAZ
+    # =====================
+    # MÉTODOS DE INTERFAZ
+    # =====================
 
     def mostrar_estado(self):
         """
@@ -67,12 +69,15 @@ class BackgammonCLI:
         Muestra el menú principal y devuelve la opción elegida por el usuario.
         """
         print("=== Menú Principal ===")
-        print("1: Jugar")
+        print("1: Jugar una nueva partida")
         print("2: Ver ayuda")
-        print("3: Salir")
-        return input("\nSelecciona una opción (1-3): ").strip()
+        print("3: Reiniciar partida")
+        print("4: Salir")
+        return input("\nSelecciona una opción (1-4): ").strip()
 
-    # CONTROL DE FLUJO
+    # ==========================
+    # CONTROL DE FLUJO Y JUEGO
+    # ==========================
 
     def procesar_comando(self, comando):
         """
@@ -92,7 +97,9 @@ class BackgammonCLI:
 
     def ejecutar_turno(self):
         """
-        Ejecuta el turno completo del jugador actual: Lanza los dados, solicita los movimientos y los valida. Finaliza cuando se usan todos los dados o se gana la partida.
+        Ejecuta el turno completo del jugador actual: 
+        Lanza los dados, solicita los movimientos y los valida. 
+        Finaliza cuando se usan todos los dados o se gana la partida.
         """
         jugador = self.__game__.get_jugador_actual()
         print("\n------------------------------------------")
@@ -103,54 +110,43 @@ class BackgammonCLI:
         valores = self.__game__.tirar_dados()
         self.mostrar_dados(valores)
 
-# Mientras haya dados disponibles, el jugador puede seguir moviendo fichas
+        # Mientras haya dados disponibles, el jugador puede seguir moviendo fichas
         while self.__game__.get_dados_actuales():
-# Mostrar el estado actual del tablero antes de cada movimiento
+            # Mostrar el estado actual del tablero antes de cada movimiento
             self.mostrar_estado()
 
             try:
-# --- Solicitar punto de origen ---
-# El jugador indica desde qué punto quiere mover una ficha.
-# Puede ser un número del 1 al 24, o 0 si está sacando desde la barra.
+                # --- Solicitar punto de origen ---
                 origen_input = input("Origen (1-24, 0=barra, 'salir'=terminar): ").strip()
                 if not self.procesar_comando(origen_input):
                     exit(0)
                 origen = int(origen_input)
 
-# --- Solicitar punto de destino ---
-# El jugador indica a qué punto moverá la ficha.
-# Puede ser un número del 1 al 24, o 25 si está sacando del tablero.
+                # --- Solicitar punto de destino ---
                 destino_input = input("Destino (1-24, 25=meta, 'salir'=terminar): ").strip()
                 if not self.procesar_comando(destino_input):
                     exit(0)
                 destino = int(destino_input)
 
-# --- Seleccionar el dado a usar ---
-# Se muestran los dados disponibles y se pide cuál utilizar para este movimiento.
+                # --- Seleccionar el dado a usar ---
                 dado_input = input(f"Selecciona dado {self.__game__.get_dados_actuales()}: ").strip()
                 if not self.procesar_comando(dado_input):
                     exit(0)
                 dado = int(dado_input)
 
-# --- Intentar realizar el movimiento ---
-# Se envían los valores al núcleo del juego, que valida y ejecuta el movimiento.
+                # --- Intentar realizar el movimiento ---
                 if self.__game__.mover_ficha(origen, destino, dado):
                     print("Movimiento realizado correctamente.")
 
-# Verificar si con este movimiento se completó la partida
+                    # Verificar si con este movimiento se completó la partida
                     if self.__game__.juego_terminado():
                         self.mostrar_resultado_final()
                         return
                 else:
-# Movimiento inválido por reglas del juego 
                     print("Movimiento inválido. Intenta nuevamente.")
-
-# --- Manejo de errores comunes ---
             except ValueError:
-# El jugador ingresó texto o un número inválido
                 print("Entrada inválida. Solo se permiten números enteros.")
             except Exception as e:
-# Captura cualquier otro error imprevisto sin romper el juego
                 print(f"Error: {str(e)}")
 
         # Cambiar turno
@@ -158,9 +154,20 @@ class BackgammonCLI:
         self.__game__.cambiar_turno()
         input("Presiona Enter para continuar con el siguiente jugador...")
 
+    def reiniciar_partida(self):
+        """
+        Reinicia completamente el estado del juego, creando una nueva instancia de BackgammonGame.
+        Se utiliza cuando el jugador desea comenzar una partida desde cero sin cerrar el programa.
+        """
+        print("\nReiniciando...\n")
+        self.__game__ = BackgammonGame()
+        print("Nueva partida lista.\n")
+        self.mostrar_estado()
+
     def iniciar(self):
         """
         Inicia el ciclo principal del juego de Backgammon en la terminal.
+        Permite al usuario jugar, reiniciar, consultar ayuda o salir.
         """
         print("=== Bienvenido al Backgammon ===")
 
@@ -168,19 +175,20 @@ class BackgammonCLI:
             opcion = self.mostrar_menu_principal()
 
             if opcion == "1":
-                print("\n Iniciando...\n")
+                print("\nIniciando...\n")
                 self.mostrar_estado()
                 while not self.__game__.juego_terminado():
                     self.ejecutar_turno()
                 self.mostrar_resultado_final()
-                break
             elif opcion == "2":
                 self.mostrar_ayuda()
             elif opcion == "3":
+                self.reiniciar_partida()
+            elif opcion == "4":
                 print("Gracias por jugar al Backgammon.")
                 break
             else:
-                print("Opción inválida. Elegí 1, 2 o 3.\n")
+                print("Opción inválida. Elegí 1, 2, 3 o 4.\n")
 
 if __name__ == "__main__":
     cli = BackgammonCLI()
