@@ -5,6 +5,10 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 - Pendiente: Implementar CLI completo y gráficos con Pygame.
 - Pendiente: Incluir opción para reiniciar partida desde el menú principal sin reiniciar el programa. Implementar comando `"estado"` o `"tablero"` que permita ver el tablero en cualquier momento.
 
+## [2025-10-09] 
+### Added
+- Integración de función `reiniciar_partida()` así no tener que cerrar el programa cada vez que se quiera reiniciar
+
 ## [2025-10-08] 
 ### Added
 - Se integró el método `procesar_comando()` para manejar comandos especiales desde la terminal (por ejemplo, `salir`, `ayuda`, etc.).
