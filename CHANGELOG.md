@@ -2,8 +2,11 @@
 Todas las modificaciones importantes de este proyecto se documentarán en este archivo.
 
 ## [Unreleased]
-- Pendiente: Implementar CLI completo y gráficos con Pygame.
-- Pendiente: Incluir opción para reiniciar partida desde el menú principal sin reiniciar el programa. Implementar comando `"estado"` o `"tablero"` que permita ver el tablero en cualquier momento.
+- Pendiente: Implementar tests unitarios del CLI completos y gráficos con Pygame.
+
+## [2025-10-10] 
+### Added
+- Implementación de la posibilidad de ver el estado del tablero en calquier momento de la partida escribiendo "tablero" en terminal. 
 
 ## [2025-10-09] 
 ### Added

@@ -44,6 +44,7 @@ class BackgammonCLI:
         print("\nComandos disponibles durante la partida:")
         print(" - 'salir': finaliza la partida inmediatamente.")
         print(" - 'ayuda': muestra nuevamente esta guía.")
+        print(" - 'tablero': muestra el estado actual del tablero.")
         print("===============================\n")
 
     def mostrar_resultado_final(self):
@@ -87,12 +88,18 @@ class BackgammonCLI:
         Returns:
             bool: True si el programa debe continuar, False si debe finalizar.
         """
-        if comando.lower() == "salir":
+        comando = comando.lower()
+
+        if comando == "salir":
             print("\nJuego interrumpido por el usuario.")
             return False
-        elif comando.lower() == "ayuda":
+        elif comando == "ayuda":
             self.mostrar_ayuda()
             return True
+        elif comando == "tablero":
+            self.mostrar_estado()
+            return True
+
         return True
 
     def ejecutar_turno(self):
@@ -120,18 +127,24 @@ class BackgammonCLI:
                 origen_input = input("Origen (1-24, 0=barra, 'salir'=terminar): ").strip()
                 if not self.procesar_comando(origen_input):
                     exit(0)
+                if not origen_input.isdigit():
+                    continue
                 origen = int(origen_input)
 
                 # --- Solicitar punto de destino ---
                 destino_input = input("Destino (1-24, 25=meta, 'salir'=terminar): ").strip()
                 if not self.procesar_comando(destino_input):
                     exit(0)
+                if not destino_input.isdigit():
+                    continue
                 destino = int(destino_input)
 
                 # --- Seleccionar el dado a usar ---
                 dado_input = input(f"Selecciona dado {self.__game__.get_dados_actuales()}: ").strip()
                 if not self.procesar_comando(dado_input):
                     exit(0)
+                if not dado_input.isdigit():
+                    continue
                 dado = int(dado_input)
 
                 # --- Intentar realizar el movimiento ---
@@ -168,7 +181,7 @@ class BackgammonCLI:
     def iniciar(self):
         """
         Inicia el ciclo principal del juego de Backgammon en la terminal.
-        Permite al usuario jugar, reiniciar, consultar ayuda o salir.
+        Permite al usuario jugar, reiniciar, consultar ayuda, ver el tablero o salir.
         """
         print("=== Bienvenido al Backgammon ===")
 
@@ -194,7 +207,6 @@ class BackgammonCLI:
 
             else:
                 print("Opción inválida. Elegí 1, 2, 3 o 4.\n")
-
 
 if __name__ == "__main__":
     cli = BackgammonCLI()
