@@ -3,6 +3,13 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 
 ## [Unreleased]
 - Pendiente: Implementar tests unitarios del CLI completos y gráficos con Pygame.
+- Pendiente: Agregar tests unitarios para: `mostrar_menu_principal()` (validar flujo de opciones sin interacción real).`ejecutar_turno()` (simular jugadas básicas). `iniciar()` (verificar flujo principal del menú). Añadir casos de prueba adicionales que contemplen errores y condiciones límite.
+
+## [2025-10-11] 
+### Added 
+- Se agregaron pruebas para:
+- Creación e instancia del CLI.  
+- Métodos de interfaz básicos: `mostrar_estado()`,`mostrar_ayuda()`, `mostrar_dados()`,`mostrar_resultado_final()`. Procesamiento de comandos (`procesar_comando()` con "ayuda", "salir" y entradas inválidas). Reinicio de partida (`reiniciar_partida()`).  
 
 ## [2025-10-10] 
 ### Added
