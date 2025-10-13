@@ -2,8 +2,11 @@
 Todas las modificaciones importantes de este proyecto se documentarán en este archivo.
 
 ## [Unreleased]
-- Pendiente: Implementar tests unitarios del CLI completos y gráficos con Pygame.
-- Pendiente: Agregar tests unitarios para: `iniciar()` (verificar flujo principal del menú). Añadir casos de prueba adicionales que contemplen errores y condiciones límite.
+- Pendiente: Completar tests unitarios del CLI completos e implementar gráficos con Pygame.
+
+## [2025-10-13] 
+### Added 
+- Agregados: `test_iniciar_no_falla`, `test_procesar_comando_mayusculas`, `test_procesar_comando_espacios`, `test_mostrar_dados_lista_vacia`, `test_reiniciar_partida_multiple` para los tests unitarios del CLI 
 
 ## [2025-10-12] 
 ### Added 
