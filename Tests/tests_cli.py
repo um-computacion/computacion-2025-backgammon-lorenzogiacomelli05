@@ -80,8 +80,6 @@ class TestBackgammonCLI(unittest.TestCase):
             resultado = False
         self.assertTrue(resultado)
 
-    # 🔹 Nuevos tests agregados hoy (simples y sin dependencias externas)
-
     def test_mostrar_menu_principal(self):
         """
         Verifica que mostrar_menu_principal se ejecute sin errores.
@@ -106,7 +104,58 @@ class TestBackgammonCLI(unittest.TestCase):
             resultado = False
         self.assertTrue(resultado)
 
+    def test_iniciar_no_falla(self):
+        """
+        Verifica que el método iniciar() se pueda ejecutar sin lanzar excepciones.
+        No evalúa el flujo completo del menú, solo que el método exista y no falle.
+        """
+        try:
+            self.__cli__.iniciar()
+            resultado = True
+        except Exception:
+            resultado = False
+        self.assertTrue(resultado)
+
+    def test_procesar_comando_mayusculas(self):
+        """
+        Verifica que el comando 'SALIR' en mayúsculas sea interpretado correctamente.
+        Se espera que el retorno sea False, igual que 'salir' en minúsculas.
+        """
+        resultado = self.__cli__.procesar_comando("SALIR")
+        self.assertFalse(resultado)
+
+    def test_procesar_comando_espacios(self):
+        """
+        Verifica que los espacios adicionales en un comando no generen errores.
+        El método debe seguir retornando True para comandos desconocidos.
+        """
+        resultado = self.__cli__.procesar_comando("   comando_invalido   ")
+        self.assertTrue(resultado)
+
+    def test_mostrar_dados_lista_vacia(self):
+        """
+        Verifica que mostrar_dados funcione correctamente incluso con una lista vacía.
+        Esto cubre un posible caso límite donde los dados no se hayan lanzado.
+        """
+        try:
+            self.__cli__.mostrar_dados([])
+            resultado = True
+        except Exception:
+            resultado = False
+        self.assertTrue(resultado)
+
+    def test_reiniciar_partida_multiple(self):
+        """
+        Verifica que reiniciar_partida pueda ejecutarse varias veces seguidas sin errores.
+        Se espera que siempre cree una nueva instancia del juego correctamente.
+        """
+        try:
+            for _ in range(3):
+                self.__cli__.reiniciar_partida()
+            resultado = True
+        except Exception:
+            resultado = False
+        self.assertTrue(resultado)
+
 if __name__ == "__main__":
     unittest.main()
-
-
