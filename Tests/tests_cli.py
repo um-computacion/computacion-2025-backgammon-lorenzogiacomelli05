@@ -4,7 +4,8 @@ from CLI import BackgammonCLI
 
 class TestBackgammonCLI(unittest.TestCase):
     """
-    Tests unitarios básicos para la clase BackgammonCLI.
+    Tests unitarios para la clase BackgammonCLI.
+    Verifica el correcto funcionamiento de sus métodos principales.
     """
 
     def setUp(self):
@@ -16,15 +17,11 @@ class TestBackgammonCLI(unittest.TestCase):
         self.__game__ = BackgammonGame()
 
     def test_instancia_cli(self):
-        """
-        Verifica que la instancia del CLI se cree correctamente.
-        """
+        """Verifica que la instancia del CLI se cree correctamente."""
         self.assertIsInstance(self.__cli__, BackgammonCLI)
 
     def test_mostrar_estado(self):
-        """
-        Verifica que se pueda ejecutar mostrar_estado sin errores.
-        """
+        """Verifica que se pueda ejecutar mostrar_estado sin errores."""
         try:
             self.__cli__.mostrar_estado()
             resultado = True
@@ -33,9 +30,7 @@ class TestBackgammonCLI(unittest.TestCase):
         self.assertTrue(resultado)
 
     def test_mostrar_ayuda(self):
-        """
-        Verifica que se pueda ejecutar mostrar_ayuda sin errores.
-        """
+        """Verifica que se pueda ejecutar mostrar_ayuda sin errores."""
         try:
             self.__cli__.mostrar_ayuda()
             resultado = True
@@ -44,9 +39,7 @@ class TestBackgammonCLI(unittest.TestCase):
         self.assertTrue(resultado)
 
     def test_mostrar_dados(self):
-        """
-        Verifica que se pueda ejecutar mostrar_dados con una lista de valores.
-        """
+        """Verifica que se pueda ejecutar mostrar_dados con una lista de valores."""
         try:
             self.__cli__.mostrar_dados([2, 5])
             resultado = True
@@ -55,30 +48,22 @@ class TestBackgammonCLI(unittest.TestCase):
         self.assertTrue(resultado)
 
     def test_procesar_comando_ayuda(self):
-        """
-        Verifica que el comando 'ayuda' sea procesado correctamente.
-        """
+        """Verifica que el comando 'ayuda' sea procesado correctamente."""
         resultado = self.__cli__.procesar_comando("ayuda")
         self.assertTrue(resultado)
 
     def test_procesar_comando_salir(self):
-        """
-        Verifica que el comando 'salir' retorne False.
-        """
+        """Verifica que el comando 'salir' retorne False."""
         resultado = self.__cli__.procesar_comando("salir")
         self.assertFalse(resultado)
 
     def test_procesar_comando_invalido(self):
-        """
-        Verifica que un comando desconocido no genere errores.
-        """
+        """Verifica que un comando desconocido no genere errores."""
         resultado = self.__cli__.procesar_comando("comando_invalido")
         self.assertTrue(resultado)
 
     def test_mostrar_resultado_final_sin_ganador(self):
-        """
-        Verifica que mostrar_resultado_final funcione incluso si no hay ganador.
-        """
+        """Verifica que mostrar_resultado_final funcione incluso si no hay ganador."""
         try:
             self.__cli__.mostrar_resultado_final()
             resultado = True
@@ -87,9 +72,7 @@ class TestBackgammonCLI(unittest.TestCase):
         self.assertTrue(resultado)
 
     def test_reiniciar_partida(self):
-        """
-        Verifica que reiniciar_partida cree una nueva instancia de juego sin errores.
-        """
+        """Verifica que reiniciar_partida cree una nueva instancia de juego sin errores."""
         try:
             self.__cli__.reiniciar_partida()
             resultado = True
@@ -97,5 +80,33 @@ class TestBackgammonCLI(unittest.TestCase):
             resultado = False
         self.assertTrue(resultado)
 
+    # 🔹 Nuevos tests agregados hoy (simples y sin dependencias externas)
+
+    def test_mostrar_menu_principal(self):
+        """
+        Verifica que mostrar_menu_principal se ejecute sin errores.
+        No valida el contenido exacto, solo que no falle.
+        """
+        try:
+            self.__cli__.mostrar_menu_principal()
+            resultado = True
+        except Exception:
+            resultado = False
+        self.assertTrue(resultado)
+
+    def test_ejecutar_turno(self):
+        """
+        Verifica que ejecutar_turno se ejecute sin errores.
+        No evalúa valores de dados, solo que la función funcione correctamente.
+        """
+        try:
+            self.__cli__.ejecutar_turno()
+            resultado = True
+        except Exception:
+            resultado = False
+        self.assertTrue(resultado)
+
 if __name__ == "__main__":
     unittest.main()
+
+

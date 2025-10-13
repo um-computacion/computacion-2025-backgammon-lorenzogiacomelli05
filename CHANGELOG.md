@@ -3,7 +3,11 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 
 ## [Unreleased]
 - Pendiente: Implementar tests unitarios del CLI completos y gráficos con Pygame.
-- Pendiente: Agregar tests unitarios para: `mostrar_menu_principal()` (validar flujo de opciones sin interacción real).`ejecutar_turno()` (simular jugadas básicas). `iniciar()` (verificar flujo principal del menú). Añadir casos de prueba adicionales que contemplen errores y condiciones límite.
+- Pendiente: Agregar tests unitarios para: `iniciar()` (verificar flujo principal del menú). Añadir casos de prueba adicionales que contemplen errores y condiciones límite.
+
+## [2025-10-12] 
+### Added 
+- Agregados: `test_mostrar_menu_principal` y `test_ejecutar_turno`en los tests unitarios del CLI.
 
 ## [2025-10-11] 
 ### Added 
