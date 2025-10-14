@@ -2,7 +2,12 @@
 Todas las modificaciones importantes de este proyecto se documentarán en este archivo.
 
 ## [Unreleased]
-- Pendiente: Completar tests unitarios del CLI completos e implementar gráficos con Pygame.
+- Pendiente: Pulir códigos de todas las clases y sus respectivos tests.
+- Pendiente: Implementar gráficos con Pygame.
+
+## [2025-10-14] 
+### Added
+- Agregados: `test_iniciar_con_input_salir`, `test_iniciar_con_varios_comandos`, `test_procesar_comando_vacio`,  `test_procesar_comando_none`, `test_mostrar_estado_varias_veces` para los tests unitarios del CLI. 
 
 ## [2025-10-13] 
 ### Added 

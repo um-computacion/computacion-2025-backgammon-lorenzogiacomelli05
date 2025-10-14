@@ -1,11 +1,14 @@
 import unittest
+from unittest.mock import patch
 from core.BackgammonGame import BackgammonGame
 from CLI import BackgammonCLI
+
 
 class TestBackgammonCLI(unittest.TestCase):
     """
     Tests unitarios para la clase BackgammonCLI.
     Verifica el correcto funcionamiento de sus métodos principales.
+    Incluye pruebas de comandos, flujo general e interacción básica.
     """
 
     def setUp(self):
@@ -72,7 +75,7 @@ class TestBackgammonCLI(unittest.TestCase):
         self.assertTrue(resultado)
 
     def test_reiniciar_partida(self):
-        """Verifica que reiniciar_partida cree una nueva instancia de juego sin errores."""
+        """Verifica que reiniciar_partida se ejecute sin errores."""
         try:
             self.__cli__.reiniciar_partida()
             resultado = True
@@ -147,11 +150,70 @@ class TestBackgammonCLI(unittest.TestCase):
     def test_reiniciar_partida_multiple(self):
         """
         Verifica que reiniciar_partida pueda ejecutarse varias veces seguidas sin errores.
-        Se espera que siempre cree una nueva instancia del juego correctamente.
+        Se espera que siempre funcione correctamente.
         """
         try:
             for _ in range(3):
                 self.__cli__.reiniciar_partida()
+            resultado = True
+        except Exception:
+            resultado = False
+        self.assertTrue(resultado)
+
+    def test_iniciar_con_input_salir(self):
+        """
+        Simula que el usuario ingresa 'salir' inmediatamente al iniciar el programa.
+        Esto prueba el flujo mínimo del método iniciar().
+        """
+        with patch("builtins.input", side_effect=["salir"]):
+            try:
+                self.__cli__.iniciar()
+                resultado = True
+            except Exception:
+                resultado = False
+        self.assertTrue(resultado)
+
+    def test_iniciar_con_varios_comandos(self):
+        """
+        Simula una secuencia de entradas válidas e inválidas en iniciar().
+        Verifica que no arroje errores con múltiples interacciones.
+        """
+        comandos = ["ayuda", "comando_invalido", "salir"]
+        with patch("builtins.input", side_effect=comandos):
+            try:
+                self.__cli__.iniciar()
+                resultado = True
+            except Exception:
+                resultado = False
+        self.assertTrue(resultado)
+
+    def test_procesar_comando_vacio(self):
+        """
+        Verifica que un comando vacío no provoque errores.
+        Esto cubre la situación en la que el usuario presiona Enter sin escribir nada.
+        """
+        resultado = self.__cli__.procesar_comando("")
+        self.assertTrue(resultado)
+
+    def test_procesar_comando_none(self):
+        """
+        Verifica que pasar None como comando no genere excepciones.
+        Esto simula una entrada malformada o vacía.
+        """
+        try:
+            resultado = self.__cli__.procesar_comando(None)
+            es_valido = isinstance(resultado, bool)
+        except Exception:
+            es_valido = False
+        self.assertTrue(es_valido)
+
+    def test_mostrar_estado_varias_veces(self):
+        """
+        Verifica que mostrar_estado pueda llamarse varias veces consecutivas sin errores.
+        """
+        try:
+            for _ in range(5):
+                self.__cli__.mostrar_estado()
             resultado = True
         except Exception:
             resultado = False
