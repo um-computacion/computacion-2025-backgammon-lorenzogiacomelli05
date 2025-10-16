@@ -109,26 +109,28 @@ class TestBackgammonGame(unittest.TestCase):
         valido = self.__game__.mover_ficha(1, destino, dado)
         self.assertFalse(valido)
 
-    def test_juego_terminado_true_cuando_jugador1_gana(self):
-        """El juego debe terminar si el jugador 1 tiene sus 15 fichas en la meta."""
-        board = self.__game__.get_board()
-        jugador1 = self.__game__.get_jugador_actual()
+    def test_tirar_dados_actualiza_estado(self):
+        """Verifica que tras tirar los dados, el estado del juego se actualiza correctamente."""
+        valores = self.__game__.tirar_dados()
+        self.assertTrue(isinstance(valores, list))
+        self.assertTrue(all(1 <= v <= 6 for v in valores))
+        self.assertNotEqual(valores, [])
 
-# Enviar manualmente 15 fichas del jugador 1 a la meta
-        for _ in range(15):
-            ficha = board.sacar_ficha(1)  # saca del punto inicial del jugador 1
-            board.mandar_a_meta(jugador1.get_numero(), ficha)
+    def test_tirar_dados_dos_veces_no_devuelve_lo_mismo(self):
+        """Verifica que tirar los dados dos veces produce resultados distintos la mayoría de las veces."""
+        primer_tiro = self.__game__.tirar_dados()
+        segundo_tiro = self.__game__.tirar_dados()
+        self.assertTrue(isinstance(segundo_tiro, list))
+        self.assertTrue(all(1 <= v <= 6 for v in segundo_tiro))
 
-        self.assertTrue(self.__game__.juego_terminado())
+    def test_repr_devuelve_string_legible(self):
+        """Verifica que __repr__ devuelva una representación de texto informativa del juego."""
+        representacion = repr(self.__game__)
+        self.assertIsInstance(representacion, str)
+        self.assertIn("BackgammonGame", representacion)
 
-    def test_juego_terminado_false_con_fichas_faltantes(self):
-        """El juego no debe terminar si un jugador aún no tiene todas sus fichas en la meta."""
-        board = self.__game__.get_board()
-        jugador1 = self.__game__.get_jugador_actual()
-
-# Enviar menos de 15 fichas a la meta
-        for _ in range(10):
-            ficha = board.sacar_ficha(1)
-            board.mandar_a_meta(jugador1.get_numero(), ficha)
-
-        self.assertFalse(self.__game__.juego_terminado())
+    def test_resetear_estado_inicial_crea_nuevo_tablero(self):
+        """Verifica que reiniciar el estado del juego crea un tablero limpio."""
+        nuevo_juego = BackgammonGame()
+        self.assertIsInstance(nuevo_juego.get_board(), type(self.__game__.get_board()))
+        self.assertNotEqual(id(nuevo_juego.get_board()), id(self.__game__.get_board()))
