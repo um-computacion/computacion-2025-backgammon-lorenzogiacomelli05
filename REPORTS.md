@@ -14,11 +14,11 @@ Tests/tests_cli.py           102     19    81%   50-51, 59-60, 68-69, 110-111, 1
 core/BackgammonGame.py        82     26    68%   77-82, 99, 107-111, 121-124, 128-134, 150, 185-188
 core/Board.py                 67     18    73%   76, 113-148, 154-155
 core/Checker.py               30      8    73%   14, 35, 56-62
-core/Dice.py                  29      1    97%   43
+core/Dice.py                  29      2    93%   43, 63
 core/Player.py                 8      0   100%
 core/__init__.py               0      0   100%
 --------------------------------------------------------
-TOTAL                        681    144    79%
+TOTAL                        681    145    79%
 
 ```
 ## Pylint Report
