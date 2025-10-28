@@ -4,6 +4,11 @@ Todas las modificaciones importantes de este proyecto se documentarán en este a
 ## [Unreleased]
 - Pendiente: Implementar gráficos con Pygame.
 
+## [2025-10-28] 
+### Added
+- Reorganización general de la estructura del proyecto.
+- Correcciones en la clase de tests unitarios del CLI. 
+
 ## [2025-10-22] 
 ### Added
 - Se refactorizó la clase de los tests unitarios del CLI con mocks para que no se requiera de interacción del usuario al intentar pasa los tests.
