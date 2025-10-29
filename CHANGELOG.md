@@ -2,7 +2,12 @@
 Todas las modificaciones importantes de este proyecto se documentarán en este archivo.
 
 ## [Unreleased]
-- Pendiente: Implementar gráficos con Pygame.
+- Pendiente: Terminar la implementación de la interfaz con Pygame.
+- Pendiente: Archivos de documentación necesaria para el proyecto (Readme.md, Justificacion.md, Prompts.md)
+
+## [2025-10-29] 
+### Added
+- Interfaz gráfica de backgammon con Pygame.
 
 ## [2025-10-28] 
 ### Added
