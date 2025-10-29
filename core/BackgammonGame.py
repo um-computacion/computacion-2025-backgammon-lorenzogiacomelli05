@@ -42,7 +42,7 @@ class BackgammonGame:
             list[int]: valores obtenidos al tirar los dados.
         """
         valores = self.__dice__.roll()
-        self.__dados_actuales__ = self.__dice__.individual_values()
+        self.__dados_actuales__ = self.__dice__.get_values()  # usar get_values() para dobles
         self.__dados_usados__ = []
         return valores
 
@@ -134,7 +134,7 @@ class BackgammonGame:
                     return False
             self.__board__.añadir_ficha(destino, ficha)
 
-# Marcar dado como usado
+        # Marcar dado como usado
         self.__dados_actuales__.remove(dado)
         self.__dados_usados__.append(dado)
         return True
