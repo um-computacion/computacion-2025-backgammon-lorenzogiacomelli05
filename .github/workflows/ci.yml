@@ -33,9 +33,13 @@ jobs:
           coverage report -m > coverage_report.txt
       - name: Run Pylint and generate report
         run: |
-          pylint --rcfile=.pylintrc core > pylint_core.txt || true
-          pylint --rcfile=.pylintrc tests > pylint_tests.txt || true
-          cat pylint_core.txt pylint_tests.txt > pylint_report.txt
+              echo "=== Running Pylint on core ===" > pylint_report.txt
+              pylint --rcfile=.pylintrc core >> pylint_report.txt 2>&1 || true
+              echo "" >> pylint_report.txt
+              echo "=== Running Pylint on tests ===" >> pylint_report.txt
+              pylint --rcfile=.pylintrc tests >> pylint_report.txt 2>&1 || true
+              cat pylint_report.txt
+
       - name: Generate reports file
         run: |
           cat << 'EOF' > generate_reports.py
