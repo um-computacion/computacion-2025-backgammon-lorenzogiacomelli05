@@ -36,8 +36,8 @@ jobs:
           echo "=== Running Pylint on core ===" > pylint_report.txt
           pylint --rcfile=.pylintrc core >> pylint_report.txt 2>&1 || true
           echo "" >> pylint_report.txt
-          echo "=== Running Pylint on tests ===" >> pylint_report.txt
-          pylint --rcfile=.pylintrc tests >> pylint_report.txt 2>&1 || true
+          echo "=== Running Pylint on Tests ===" >> pylint_report.txt
+          pylint --rcfile=.pylintrc Tests >> pylint_report.txt 2>&1 || true
           cat pylint_report.txt
 
       - name: Generate reports file
