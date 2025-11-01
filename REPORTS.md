@@ -5,7 +5,7 @@ Name                     Stmts   Miss  Cover   Missing
 ------------------------------------------------------
 CLI/CLI.py                 117     13    89%   131, 137, 139, 145, 147, 156-159, 162, 164, 209, 212-213
 Tests/tests_board.py       200     10    95%   213, 265-266, 285-286, 296-297, 333-334, 364
-Tests/tests_checker.py     256     67    74%   59-61, 65-66, 70-71, 75-78, 82-85, 90-91, 95-97, 102-103, 107-109, 114-115, 119-121, 125-127, 132-138, 142-149, 154-161, 165-171, 176-182, 186-193, 424
+Tests/tests_checker.py      73      1    99%   119
 Tests/tests_cli.py         108      1    99%   149
 core/BackgammonGame.py      82      8    90%   82, 124, 128-134, 150
 core/Board.py               67      2    97%   154-155
@@ -13,7 +13,7 @@ core/Checker.py             30      0   100%
 core/Dice.py                29      1    97%   63
 core/Player.py               8      0   100%
 ------------------------------------------------------
-TOTAL                      897    102    89%
+TOTAL                      714     36    95%
 
 ```
 ## Pylint Report
@@ -49,65 +49,7 @@ Your code has been rated at 9.26/10
 ************* Module Tests
 Tests/__init__.py:1:0: C0103: Module name "Tests" doesn't conform to snake_case naming style (invalid-name)
 ************* Module Tests.tests_checker
-Tests/tests_checker.py:133:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:135:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:145:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:147:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:157:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:159:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:167:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:169:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:177:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:179:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:189:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:191:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:271:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:273:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:283:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:285:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:295:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:297:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:305:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:307:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:315:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:317:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:327:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:329:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:338:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:340:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:349:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:351:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:359:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:361:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:370:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:378:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:383:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:389:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:395:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:405:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:408:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:415:0: C0303: Trailing whitespace (trailing-whitespace)
-Tests/tests_checker.py:418:0: C0303: Trailing whitespace (trailing-whitespace)
 Tests/tests_checker.py:1:0: C0114: Missing module docstring (missing-module-docstring)
-Tests/tests_checker.py:195:4: E0102: method already defined line 57 (function-redefined)
-Tests/tests_checker.py:201:4: E0102: method already defined line 63 (function-redefined)
-Tests/tests_checker.py:206:4: E0102: method already defined line 68 (function-redefined)
-Tests/tests_checker.py:211:4: E0102: method already defined line 73 (function-redefined)
-Tests/tests_checker.py:218:4: E0102: method already defined line 80 (function-redefined)
-Tests/tests_checker.py:226:4: E0102: method already defined line 88 (function-redefined)
-Tests/tests_checker.py:231:4: E0102: method already defined line 93 (function-redefined)
-Tests/tests_checker.py:238:4: E0102: method already defined line 100 (function-redefined)
-Tests/tests_checker.py:243:4: E0102: method already defined line 105 (function-redefined)
-Tests/tests_checker.py:250:4: E0102: method already defined line 112 (function-redefined)
-Tests/tests_checker.py:255:4: E0102: method already defined line 117 (function-redefined)
-Tests/tests_checker.py:261:4: E0102: method already defined line 123 (function-redefined)
-Tests/tests_checker.py:268:4: E0102: method already defined line 130 (function-redefined)
-Tests/tests_checker.py:278:4: E0102: method already defined line 140 (function-redefined)
-Tests/tests_checker.py:290:4: E0102: method already defined line 152 (function-redefined)
-Tests/tests_checker.py:301:4: E0102: method already defined line 163 (function-redefined)
-Tests/tests_checker.py:312:4: E0102: method already defined line 174 (function-redefined)
-Tests/tests_checker.py:322:4: E0102: method already defined line 184 (function-redefined)
-Tests/tests_checker.py:4:0: R0904: Too many public methods (33/20) (too-many-public-methods)
 ************* Module Tests.tests_cli
 Tests/tests_cli.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 Tests/tests_cli.py:18:4: C0116: Missing function or method docstring (missing-function-docstring)
@@ -236,7 +178,7 @@ Tests/tests_board.py:6:0: R0904: Too many public methods (31/20) (too-many-publi
 Tests/test_dice.py:1:0: C0114: Missing module docstring (missing-module-docstring)
 
 -----------------------------------
-Your code has been rated at 6.85/10
+Your code has been rated at 8.02/10
 
 
 ```
