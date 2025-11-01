@@ -1,0 +1,4 @@
+1. PROMPT PARA EXPLICACION DE COMO HACER UN CHANGELOG: 
+- Herramienta: GPT-5. 
+- Prompt: Estoy haciendo un proyecto de un juego de Backgammon y necesito ir actualizando un archivo Changelog.md, explicame de que se trata y como lo puedo hacer. 
+- Respuesta: Un Changelog es un archivo donde registrás todos los cambios importantes de tu proyecto, como nuevas funciones, arreglos de bugs o modificaciones. Te ayuda a ver qué cambió, cuándo y por qué. Cómo hacerlo: Se usa Markdown (Changelog.md). Se organiza por versiones y fecha. Secciones comunes: Añadido: nuevas funciones. Cambiado: cambios en funciones existentes. Arreglado: errores corregidos. Eliminado: funciones quitadas. 

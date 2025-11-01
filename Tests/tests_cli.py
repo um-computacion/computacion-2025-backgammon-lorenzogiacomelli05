@@ -3,120 +3,147 @@ from unittest.mock import patch, MagicMock
 from CLI.CLI import BackgammonCLI
 
 class TestBackgammonCLI(unittest.TestCase):
-    """
-    Tests unitarios para la clase BackgammonCLI.
-    Se mockea BackgammonGame para evitar dependencias del juego real.
-    """
+    """Tests unitarios para la clase BackgammonCLI con mocks completos."""
 
     def setUp(self):
-        """Configura una instancia del CLI con un BackgammonGame simulado."""
-        patcher = patch("CLI.CLI.BackgammonGame", autospec=True)
-        self.addCleanup(patcher.stop)
-        MockGame = patcher.start()
-
-        # Mock del juego
-        mock_game = MagicMock()
-        mock_game.tablero = [[0] * 24, [0] * 24]
-        mock_game.jugadores = ["Jugador1", "Jugador2"]
-        mock_game.tirar_dados.return_value = [4, 5]
-        mock_game.get_dados_actuales.return_value = [4, 5]
-        mock_game.get_jugador_actual.return_value = "Jugador1"
-
-        MockGame.return_value = mock_game
+        """Crea la instancia del CLI y mockea el juego interno."""
         self.cli = BackgammonCLI()
+        self.cli.__game__ = MagicMock()
 
-    # ============================
-    # Tests básicos
-    # ============================
+    # ======================
+    # TESTS DE INTERFAZ
+    # ======================
 
-    def test_instancia_cli(self):
-        """Debe poder instanciarse correctamente."""
-        self.assertIsInstance(self.cli, BackgammonCLI)
-
-    # ============================
-    # Métodos de visualización
-    # ============================
-
-    def test_mostrar_estado(self):
-        """mostrar_estado() no debe lanzar errores."""
+    @patch("builtins.print")
+    def test_mostrar_estado(self, mock_print):
+        board_mock = MagicMock()
+        self.cli.__game__.get_board.return_value = board_mock
         self.cli.mostrar_estado()
+        board_mock.display.assert_called_once()
+        self.assertTrue(mock_print.called)
 
-    def test_mostrar_ayuda(self):
-        """mostrar_ayuda() no debe lanzar errores."""
+    @patch("builtins.print")
+    def test_mostrar_ayuda(self, mock_print):
         self.cli.mostrar_ayuda()
+        self.assertTrue(mock_print.called)
 
-    def test_mostrar_dados(self):
-        """mostrar_dados() debe aceptar una lista de valores."""
-        self.cli.mostrar_dados([2, 5])
-
-    # ============================
-    # Procesamiento de comandos
-    # ============================
-
-    def test_comando_ayuda(self):
-        """El comando 'ayuda' retorna True."""
-        self.assertTrue(self.cli.procesar_comando("ayuda"))
-
-    def test_comando_salir(self):
-        """El comando 'salir' retorna False."""
-        self.assertFalse(self.cli.procesar_comando("salir"))
-
-    def test_comando_invalido(self):
-        """Comando desconocido retorna True."""
-        self.assertTrue(self.cli.procesar_comando("comando_invalido"))
-
-    def test_comando_mayusculas(self):
-        """'SALIR' funciona igual que 'salir'."""
-        self.assertFalse(self.cli.procesar_comando("SALIR"))
-
-    def test_comando_con_espacios(self):
-        """Espacios extra no afectan el resultado."""
-        self.assertTrue(self.cli.procesar_comando("   comando_invalido   "))
-
-    def test_comando_vacio(self):
-        """Comando vacío no lanza errores."""
-        self.assertTrue(self.cli.procesar_comando(""))
-
-    def test_comando_none(self):
-        """Pasar None lanza excepción."""
-        with self.assertRaises(Exception):
-            self.cli.procesar_comando(None)
-
-    # ============================
-    # Métodos auxiliares
-    # ============================
-
-    def test_mostrar_resultado_final(self):
-        """mostrar_resultado_final() debe poder ejecutarse sin errores."""
+    @patch("builtins.print")
+    def test_mostrar_resultado_final_con_ganador(self, mock_print):
+        ganador = MagicMock()
+        ganador.get_numero.return_value = 1
+        ganador.get_ficha.return_value = "X"
+        self.cli.__game__.get_ganador.return_value = ganador
         self.cli.mostrar_resultado_final()
+        self.assertTrue(mock_print.called)
 
-    def test_reiniciar_partida(self):
-        """reiniciar_partida() debe ejecutarse sin errores."""
+    @patch("builtins.print")
+    def test_mostrar_resultado_final_sin_ganador(self, mock_print):
+        self.cli.__game__.get_ganador.return_value = None
+        self.cli.mostrar_resultado_final()
+        self.assertTrue(mock_print.called)
+
+    @patch("builtins.print")
+    def test_mostrar_dados(self, mock_print):
+        self.cli.mostrar_dados([3,5])
+        mock_print.assert_called_once()
+
+    @patch("builtins.input", return_value="2")
+    @patch("builtins.print")
+    def test_mostrar_menu_principal(self, mock_print, mock_input):
+        result = self.cli.mostrar_menu_principal()
+        self.assertEqual(result, "2")
+
+    # ======================
+    # TESTS DE COMANDOS
+    # ======================
+
+    @patch("builtins.print")
+    def test_procesar_comando_salir(self, mock_print):
+        self.assertFalse(self.cli.procesar_comando("salir"))
+        self.assertTrue(mock_print.called)
+
+    @patch("builtins.print")
+    def test_procesar_comando_ayuda(self, mock_print):
+        self.assertTrue(self.cli.procesar_comando("ayuda"))
+        self.assertTrue(mock_print.called)
+
+    @patch("builtins.print")
+    def test_procesar_comando_tablero(self, mock_print):
+        self.assertTrue(self.cli.procesar_comando("tablero"))
+        self.assertTrue(mock_print.called)
+
+    def test_procesar_comando_otro(self):
+        self.assertTrue(self.cli.procesar_comando("algo"))
+
+    # ======================
+    # TESTS DE JUEGO
+    # ======================
+
+    @patch("builtins.print")
+    def test_reiniciar_partida(self, mock_print):
+        self.cli.mostrar_estado = MagicMock()
         self.cli.reiniciar_partida()
+        self.cli.mostrar_estado.assert_called_once()
+        self.assertTrue(mock_print.called)
 
-    def test_reiniciar_partida_multiple(self):
-        """reiniciar_partida() puede llamarse varias veces consecutivas."""
-        for _ in range(3):
-            self.cli.reiniciar_partida()
+    @patch("builtins.print")
+    def test_iniciar_opciones(self, mock_print):
+        """Prueba todas las opciones principales del menú con mocks."""
+        self.cli.mostrar_menu_principal = MagicMock(side_effect=["2", "3", "1", "4"])
+        self.cli.mostrar_ayuda = MagicMock()
+        self.cli.reiniciar_partida = MagicMock()
+        self.cli.mostrar_estado = MagicMock()
+        self.cli.ejecutar_turno = MagicMock()
+        self.cli.__game__.juego_terminado.side_effect = [False, True]
+        self.cli.mostrar_resultado_final = MagicMock()
 
-    def test_mostrar_estado_multiple(self):
-        """mostrar_estado() puede llamarse varias veces consecutivas."""
-        for _ in range(5):
-            self.cli.mostrar_estado()
+        self.cli.iniciar()
 
-    # ============================
-    # Tests con mocks
-    # ============================
+        self.cli.mostrar_ayuda.assert_called_once()
+        self.cli.reiniciar_partida.assert_called_once()
+        self.cli.mostrar_estado.assert_called()
+        self.cli.ejecutar_turno.assert_called()
+        self.cli.mostrar_resultado_final.assert_called_once()
+        mock_print.assert_any_call("Gracias por jugar al Backgammon.")
 
-    @patch("builtins.input", side_effect=["ayuda", "comando_invalido", "salir"])
-    def test_procesar_varios_comandos(self, _):
-        """Procesar varios comandos consecutivos no debe fallar."""
-        for cmd in ["ayuda", "comando_invalido", "salir"]:
-            self.cli.procesar_comando(cmd)
+    # ======================
+    # TESTS DE TURNOS
+    # ======================
 
-    def test_iniciar_existe(self):
-        """Debe existir el método iniciar()."""
-        self.assertTrue(hasattr(self.cli, "iniciar"))
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=["1","6","3",""])
+    def test_turno_valido(self, mock_input, mock_print):
+        juego = self.cli.__game__
+        jugador = MagicMock()
+        jugador.get_numero.return_value = 1
+        jugador.get_ficha.return_value = "X"
+        juego.get_jugador_actual.return_value = jugador
+        juego.tirar_dados.return_value = [3,5]
+        juego.get_dados_actuales.side_effect = [[3,5], [5], []]
+        juego.mover_ficha.return_value = True
+        juego.juego_terminado.return_value = False
+
+        self.cli.ejecutar_turno()
+
+        juego.tirar_dados.assert_called_once()
+        juego.mover_ficha.assert_called_with(1,6,3)
+        juego.cambiar_turno.assert_called_once()
+        mock_print.assert_any_call("Movimiento realizado correctamente.")
+
+    @patch("builtins.print")
+    @patch("builtins.input", side_effect=["salir"])
+    def test_turno_salir(self, mock_input, mock_print):
+        juego = self.cli.__game__
+        jugador = MagicMock()
+        jugador.get_numero.return_value = 2
+        jugador.get_ficha.return_value = "O"
+        juego.get_jugador_actual.return_value = jugador
+        juego.tirar_dados.return_value = [2,3]
+        juego.get_dados_actuales.return_value = [2,3]
+
+        with self.assertRaises(SystemExit):
+            self.cli.ejecutar_turno()
+        mock_print.assert_any_call("\nJuego interrumpido por el usuario.")
 
 if __name__ == "__main__":
     unittest.main()

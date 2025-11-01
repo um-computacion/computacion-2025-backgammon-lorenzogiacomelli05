@@ -1,7 +1,12 @@
 venv/
 
-_pycache_/
+__pycache__/
+*/__pycache__/
+
 *.py[cod]
 *.pyo
 *.log
 .cache/
+htmlcov/
+.pytest_cache/
+

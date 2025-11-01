@@ -1,9 +1,10 @@
 # Changelog
 Todas las modificaciones importantes de este proyecto se documentarán en este archivo.
 
-## [Unreleased]
-- Pendiente: Revisar que la implementación de la interfaz con Pygame sea correcta y funcione todo correctamente.
-- Pendiente: Archivos de documentación necesaria para el proyecto (Readme.md, Justificacion.md, Prompts.md)
+## [2025-10-31] 
+### Added
+- Añado documentación importante para el proyecto.
+- Refactorización y adición de tests unitarios en varias clases para subir el porcentaje de coverage del código.
 
 ## [2025-10-29] 
 ### Added
