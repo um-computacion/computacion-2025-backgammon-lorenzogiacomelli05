@@ -1,0 +1,184 @@
+# Automated Reports
+## Coverage Report
+```text
+Name                     Stmts   Miss  Cover   Missing
+------------------------------------------------------
+CLI/CLI.py                 117     13    89%   131, 137, 139, 145, 147, 156-159, 162, 164, 209, 212-213
+Tests/tests_board.py       200     10    95%   213, 265-266, 285-286, 296-297, 333-334, 364
+Tests/tests_checker.py      73      1    99%   119
+Tests/tests_cli.py         108      1    99%   149
+core/BackgammonGame.py      82      8    90%   82, 124, 128-134, 150
+core/Board.py               67      2    97%   154-155
+core/Checker.py             30      0   100%
+core/Dice.py                29      1    97%   63
+core/Player.py               8      0   100%
+------------------------------------------------------
+TOTAL                      714     36    95%
+
+```
+## Pylint Report
+```text
+=== Running Pylint on core ===
+************* Module core.Dice
+core/Dice.py:89:0: C0304: Final newline missing (missing-final-newline)
+core/Dice.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+core/Dice.py:1:0: C0103: Module name "Dice" doesn't conform to snake_case naming style (invalid-name)
+************* Module core.BackgammonGame
+core/BackgammonGame.py:188:0: C0304: Final newline missing (missing-final-newline)
+core/BackgammonGame.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+core/BackgammonGame.py:1:0: C0103: Module name "BackgammonGame" doesn't conform to snake_case naming style (invalid-name)
+core/BackgammonGame.py:120:11: R1714: Consider merging these comparisons with 'in' by using 'destino in (25, 0)'. Use a set instead if elements are hashable. (consider-using-in)
+core/BackgammonGame.py:84:4: R0911: Too many return statements (7/6) (too-many-return-statements)
+************* Module core.Board
+core/Board.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+core/Board.py:1:0: C0103: Module name "Board" doesn't conform to snake_case naming style (invalid-name)
+core/Board.py:39:4: C2401: Function name "añadir_ficha" contains a non-ASCII character, consider renaming it. (non-ascii-name)
+************* Module core.Player
+core/Player.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+core/Player.py:1:0: C0103: Module name "Player" doesn't conform to snake_case naming style (invalid-name)
+************* Module core.Checker
+core/Checker.py:54:0: C0303: Trailing whitespace (trailing-whitespace)
+core/Checker.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+core/Checker.py:1:0: C0103: Module name "Checker" doesn't conform to snake_case naming style (invalid-name)
+
+-----------------------------------
+Your code has been rated at 9.26/10
+
+
+=== Running Pylint on Tests ===
+************* Module Tests
+Tests/__init__.py:1:0: C0103: Module name "Tests" doesn't conform to snake_case naming style (invalid-name)
+************* Module Tests.tests_checker
+Tests/tests_checker.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+************* Module Tests.tests_cli
+Tests/tests_cli.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+Tests/tests_cli.py:18:4: C0116: Missing function or method docstring (missing-function-docstring)
+Tests/tests_cli.py:26:4: C0116: Missing function or method docstring (missing-function-docstring)
+Tests/tests_cli.py:31:4: C0116: Missing function or method docstring (missing-function-docstring)
+Tests/tests_cli.py:40:4: C0116: Missing function or method docstring (missing-function-docstring)
+Tests/tests_cli.py:46:4: C0116: Missing function or method docstring (missing-function-docstring)
+Tests/tests_cli.py:52:4: C0116: Missing function or method docstring (missing-function-docstring)
+Tests/tests_cli.py:52:42: W0613: Unused argument 'mock_print' (unused-argument)
+Tests/tests_cli.py:52:54: W0613: Unused argument 'mock_input' (unused-argument)
+Tests/tests_cli.py:61:4: C0116: Missing function or method docstring (missing-function-docstring)
+Tests/tests_cli.py:66:4: C0116: Missing function or method docstring (missing-function-docstring)
+Tests/tests_cli.py:71:4: C0116: Missing function or method docstring (missing-function-docstring)
+Tests/tests_cli.py:75:4: C0116: Missing function or method docstring (missing-function-docstring)
+Tests/tests_cli.py:83:4: C0116: Missing function or method docstring (missing-function-docstring)
+Tests/tests_cli.py:115:4: C0116: Missing function or method docstring (missing-function-docstring)
+Tests/tests_cli.py:115:32: W0613: Unused argument 'mock_input' (unused-argument)
+Tests/tests_cli.py:135:4: C0116: Missing function or method docstring (missing-function-docstring)
+Tests/tests_cli.py:135:31: W0613: Unused argument 'mock_input' (unused-argument)
+************* Module Tests.test_player
+Tests/test_player.py:46:0: C0305: Trailing newlines (trailing-newlines)
+Tests/test_player.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+************* Module Tests.test_backgammon
+Tests/test_backgammon.py:96:0: C0301: Line too long (106/100) (line-too-long)
+Tests/test_backgammon.py:113:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:152:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:157:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:166:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:169:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:172:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:175:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:184:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:187:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:190:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:198:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:201:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:210:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:213:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:216:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:226:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:229:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:232:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:241:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:244:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:247:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:250:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:260:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:264:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:272:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:276:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:285:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:289:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:297:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:300:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:309:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:312:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:315:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/test_backgammon.py:320:0: C0304: Final newline missing (missing-final-newline)
+Tests/test_backgammon.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+Tests/test_backgammon.py:97:8: W0612: Unused variable 'primer_tiro' (unused-variable)
+Tests/test_backgammon.py:158:15: C0121: Comparison 'game.puede_bear_off(jugador1) == False' should be 'game.puede_bear_off(jugador1) is False' if checking for the singleton value False, or 'not game.puede_bear_off(jugador1)' if testing for falsiness (singleton-comparison)
+Tests/test_backgammon.py:178:15: C0121: Comparison 'resultado == False' should be 'resultado is False' if checking for the singleton value False, or 'not resultado' if testing for falsiness (singleton-comparison)
+Tests/test_backgammon.py:164:8: W0612: Unused variable 'jugador1' (unused-variable)
+Tests/test_backgammon.py:193:15: C0121: Comparison 'resultado == False' should be 'resultado is False' if checking for the singleton value False, or 'not resultado' if testing for falsiness (singleton-comparison)
+Tests/test_backgammon.py:204:15: C0121: Comparison 'resultado == False' should be 'resultado is False' if checking for the singleton value False, or 'not resultado' if testing for falsiness (singleton-comparison)
+Tests/test_backgammon.py:219:15: C0121: Comparison 'resultado == True' should be 'resultado is True' if checking for the singleton value True, or 'resultado' if testing for truthiness (singleton-comparison)
+Tests/test_backgammon.py:235:15: C0121: Comparison 'resultado == True' should be 'resultado is True' if checking for the singleton value True, or 'resultado' if testing for truthiness (singleton-comparison)
+Tests/test_backgammon.py:253:15: C0121: Comparison 'resultado == False' should be 'resultado is False' if checking for the singleton value False, or 'not resultado' if testing for falsiness (singleton-comparison)
+Tests/test_backgammon.py:262:12: W0612: Unused variable 'i' (unused-variable)
+Tests/test_backgammon.py:274:12: W0612: Unused variable 'i' (unused-variable)
+Tests/test_backgammon.py:287:12: W0612: Unused variable 'i' (unused-variable)
+Tests/test_backgammon.py:303:15: C0121: Comparison 'resultado == False' should be 'resultado is False' if checking for the singleton value False, or 'not resultado' if testing for falsiness (singleton-comparison)
+Tests/test_backgammon.py:318:15: C0121: Comparison 'resultado == False' should be 'resultado is False' if checking for the singleton value False, or 'not resultado' if testing for falsiness (singleton-comparison)
+Tests/test_backgammon.py:6:0: R0904: Too many public methods (34/20) (too-many-public-methods)
+************* Module Tests.tests_board
+Tests/tests_board.py:78:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:88:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:91:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:100:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:109:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:112:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:123:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:130:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:132:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:134:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:141:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:143:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:151:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:155:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:158:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:167:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:176:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:178:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:180:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:187:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:189:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:202:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:204:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:207:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:214:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:216:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:228:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:230:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:237:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:248:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:251:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:273:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:278:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:282:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:293:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:318:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:322:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:328:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:340:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:355:0: C0303: Trailing whitespace (trailing-whitespace)
+Tests/tests_board.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+Tests/tests_board.py:29:4: C2401: Function name "test_añadir_y_sacar_ficha" contains a non-ASCII character, consider renaming it. (non-ascii-name)
+Tests/tests_board.py:265:15: W0718: Catching too general exception Exception (broad-exception-caught)
+Tests/tests_board.py:285:15: W0718: Catching too general exception Exception (broad-exception-caught)
+Tests/tests_board.py:296:15: W0718: Catching too general exception Exception (broad-exception-caught)
+Tests/tests_board.py:314:4: C2401: Function name "test_añadir_ficha_posicion_valida" contains a non-ASCII character, consider renaming it. (non-ascii-name)
+Tests/tests_board.py:325:4: C2401: Function name "test_añadir_ficha_posicion_invalida" contains a non-ASCII character, consider renaming it. (non-ascii-name)
+Tests/tests_board.py:333:15: W0718: Catching too general exception Exception (broad-exception-caught)
+Tests/tests_board.py:6:0: R0904: Too many public methods (31/20) (too-many-public-methods)
+************* Module Tests.test_dice
+Tests/test_dice.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+
+-----------------------------------
+Your code has been rated at 8.02/10
+
+
+```
