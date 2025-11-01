@@ -1,6 +1,10 @@
 # Changelog
 Todas las modificaciones importantes de este proyecto se documentarán en este archivo.
 
+## [2025-11-01] 
+### Added
+- Ultimas modificaciones finales.
+
 ## [2025-10-31] 
 ### Added
 - Añado documentación importante para el proyecto.
